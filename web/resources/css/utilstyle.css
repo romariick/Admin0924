@@ -1,0 +1,215 @@
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+
+/*Menu selectionner */
+
+.menusidebar:hover{
+    color: white;
+    background-color: #CCCCCC;
+    border-radius: 2px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+}
+/*Information des utilisateurs sur footer*/
+#footer a{
+    color: black;
+    text-decoration: none;
+}
+
+#footer a:hover, #footer a:focus{
+    text-decoration: underline;  
+}
+
+#titreMenu{
+    margin-top: 0px;
+    margin-bottom: 10px;
+    line-height: 10px;
+    border-bottom: 2px solid black; 
+    padding-bottom: 10px;
+    /*background-image: url("../resources/images/accueil.png");*/
+    background-repeat: no-repeat;
+    /* background-color: #1881B4;*/
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-left: 5px;
+    text-align: center;
+    color: black;
+
+}
+
+#bandeDansMain{
+
+    background-color: #1881B4;
+    height: 8px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 2px;
+}
+
+/*Modification header Menu dans page global*/
+/*.ui-widget-header {
+    background-color: #009FDD !important;
+    background-image: none !important;
+    color: white;
+    text-align: center;
+    padding-bottom: 5px;
+    text-shadow : none !important;  
+    border-bottom: 3px solid #191919;
+    border-radius: 2px !important;
+}*/
+
+#infoConnecte{
+    float : right;
+    margin-top: 50px;
+    margin-right: 10px;
+    margin-left: 50px;
+}
+#insererLogo{
+    text-align: left;
+    margin-left: 10px;
+    border: 1px solid #CCCCCC;
+    margin-right: 10px;
+    margin-top: 5px;
+    padding-top: 0px;   
+}
+
+.stylePanelGrid{
+    width: 35%;
+    border: 2px solid #CCCCCC;
+    margin-bottom: 10px;
+    padding-top : 5px;
+    padding-bottom: 5px;
+}    
+
+.titreStyle{
+    color: white;
+    font-size: 15px !important;
+    font-weight: 400;
+    margin-top: 13px;  
+    text-align: left;
+    height: 13px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+}
+
+#ajoutClient{
+    color: white;
+    text-align:left;
+    height: 13px;
+    padding-left: 5px;
+    width: 35%;
+    height: 50%;
+}
+
+.ui-wizard-step-title{
+    font-size: 12px !important;
+}
+
+
+.separationModifOuAjout{
+    height: 10%;
+    border: 1px solid #191919;
+}
+
+.ajoutOuModif{
+    margin-top: 2px;
+    text-align: left;
+    /*   height: 13px;*/
+    /*padding-top: 5px;*/
+    padding-bottom: 5px;
+    padding-left: 5px;
+    /*  width: 35%;*/
+    /*  height: 50%;*/
+}
+
+.seraparationListeDetails{
+    margin-top: 10px;
+    color: white;
+    text-align:center;
+    height: 13px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+}
+
+.separationDataTable{
+    margin-top: 10px;
+}
+
+.order-table-header{
+    text-align:center;
+    background:none repeat scroll 0 0 #E5E5E5;
+    border-bottom:1px solid #BBBBBB;
+    padding:10px;
+}
+
+.order-table-odd-row{
+    text-align:center;
+    border-top:1px solid #BBBBBB;
+}
+
+.order-table-even-row{
+
+    text-align:center;
+    background:none repeat scroll 0 0 #F9F9F9;
+    border-top:1px solid #BBBBBB;
+}
+.ajoutNouveauColonne{
+    float: right;
+    margin-right: 10px;
+    border:none;
+}
+.styleAccordeon{
+    background-color: red;
+}
+
+/*Modification en-tête accordeon Old version*/
+.ui-accordion-header{
+    background-color: #0090D9 !important;
+    background-image: none !important; 
+    text-align: center;
+    padding-bottom: 5px;
+
+
+
+    font-size: 13px !important;
+}
+
+.ui-accordion-header a{
+    color: white !important;
+    font-size: 15px !important;
+    text-decoration: none !important;
+    font-weight: 400;
+
+
+}
+.ui-accordion-header a:hover{
+    color: white !important;
+    font-size: 15px !important;
+    font-weight: 400;
+}
+/*.ui-accordion .ui-accordion-content{
+     background-color:  #1B1E24 !important; 
+}*/
+/*Bouton*/
+/*.ui-corner-all{
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+}*/
+
+.ui-widget-content label.boldLabel{
+    text-align: right !important;
+}
+
+.ui-widget{
+    font-family:'Open Sans' !important;
+}
+
+.ui-dialog-title{
+    font-size: 12px !important;
+}

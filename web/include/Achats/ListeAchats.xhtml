@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition>     
+        <p:growl id="messageSupprClient" showDetail="true" />
+        <h:form id="client">
+            <p:dataTable id="tableClient"
+                         value="#{MBArticle.tempAchat}"                         
+                         style="margin-top: 10px;"
+                         var="produitacheter"
+                         paginator="true" rows="10" 
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                         rowsPerPageTemplate="5,10,15" resizableColumns="true">
+
+                <f:facet name="header">  
+                    Liste des achats
+                </f:facet>  
+                <p:column  style="width:20%" filterBy="">
+                    <f:facet name="header">  
+                        <h:outputText value="Nom Produit" />  
+                    </f:facet>  
+                    <h:outputText value="#{produitacheter.nomproduit}" /> 
+                </p:column>  
+
+                <p:column  style="width:20%" filterBy="">
+                    <f:facet name="header">  
+                        <h:outputText value="Prix" />  
+                    </f:facet>  
+                    <h:outputText value="#{produitacheter.prix}" /> 
+                </p:column>   
+                <p:column  style="width:20%" filterBy="">
+                    <f:facet name="header">  
+                        <h:outputText value="Code barre" />  
+                    </f:facet>  
+                    <h:outputText value="#{produitacheter.codeBarre}" /> 
+                </p:column> 
+                <p:column  style="width:20%" filterBy="">
+                    <f:facet name="header">  
+                        <h:outputText value="Disponibilité" />  
+                    </f:facet>  
+                    <h:outputText value="" /> 
+                </p:column> 
+
+                <p:column  style="width:20%" filterBy="">
+                    <f:facet name="header">  
+                        <h:outputText value="Reduction" />  
+                    </f:facet>  
+                    <h:outputText value="" /> 
+                </p:column> 
+            </p:dataTable>            
+        </h:form>
+
+        <p:panel style="width: 100%; margin-top: 5px;" id="validationdesachats" styleClass="tableNoBorder" >
+            <h:form id="validationachat" style="text-align: left">
+                
+                <p:commandButton icon="ui-icon-plus"   
+                                 value="Validez" 
+                                 update=":client, :validationachat:sommeachat"
+                                 actionListener="#{MBArticle.validerAchat()}"
+                                 id="ajoutLink" 
+                                 
+                                 title="Validez achat" 
+                                 style="margin-top: 10px;margin-bottom: 10px;"
+                                 >
+                
+                </p:commandButton>
+                
+                <p:outputLabel styleClass="netapayez"  id="sommeachat" style="float: right;"  value="Somme à Payez : #{MBArticle.netApayez} "/>
+            </h:form>
+        </p:panel>
+    </ui:composition>
+</html>
+

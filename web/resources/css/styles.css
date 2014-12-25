@@ -1,0 +1,150 @@
+
+
+/* Global */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+html {
+    font-size: 100%; 
+}
+body {
+    color: #F0E39E;
+    margin: 0;
+  
+    font-size: .6em; 
+    line-height: 1.25; 
+    color: black;
+    background-color: #BBBBBB;
+     font-family:'Open Sans' !important;
+
+}
+#global {
+    width: 45%;
+    margin-top: 132px;
+    margin-right: auto;
+    margin-left: auto;
+}
+#entete {
+    margin-top: 3px;
+
+
+    background-color:#000000;
+    border-style:solid;
+    border-width:1px;
+    border-radius: 2px;
+
+}
+/* Navigation : page d'accueil */
+#resume {
+    border-bottom-color: #CCCCCC;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-top-color: -moz-use-text-color;
+    border-top-style: none;
+    border-top-width: 0; 
+    margin-bottom: 10px;
+    width: 343px;
+    
+    background-color: #FFFFFF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    min-height: 287px;
+    height: auto;
+}
+
+.ui-messages-error{
+    margin-bottom: 0px !important; 
+}
+
+.ui-widget{
+    font-family: 'Open Sans' !important;
+    font-size: 1.3em;
+}
+
+/* Contenu */
+#contenu {
+    float: left;	
+    color: #363B29;
+}
+
+#connexionDroite{
+    border-style:solid;
+    border-width:1px;
+    float: right;
+    margin-right: 20px;
+}
+
+#informationGauche{
+    border-style:solid;
+    border-width:1px;
+    float: left;
+    color:blue;
+    height: 500px;
+    width: 500px;
+    margin-right: 20px;
+
+}
+
+#entete .titre{
+    color: #FFFFFF;
+    font-size: 1.5em;
+    font-weight: bold;
+    line-height: 44px;
+    padding-left: 14px;
+    float: right;
+}
+
+.login{
+    margin-left: 20px;
+    margin-right: auto !important;
+    margin-top: 50px !important;
+    width: 60%;
+
+}
+.formBoite{
+    background-color: #FFFFFF !important;
+}
+
+#bande{
+    background-color: #191919;
+    height: 5px;
+
+}
+
+h1{
+    color: #025A8D;
+    line-height: 12px; 
+}
+
+#piedDepage .copyright{
+    line-height: 160%;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+    text-align: center;
+}
+
+#piedDepage .copyright a{
+    color: black;
+    text-decoration: none;
+}
+#piedDepage .copyright a:hover, #piedDepage .copyright a:focus{
+    text-decoration: underline;
+}
+
+#mdpOublier{
+    color: #FFFFFF;
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 44px;
+    margin-left: 430px;
+}
+
+.alignerRight{
+    margin-left: 196px;
+    
+}
+
+.margeHautPhoto{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}

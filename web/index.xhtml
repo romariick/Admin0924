@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Client caisse.</title>
+    </h:head>
+    <h:body class="accueil">
+        <h:outputStylesheet library="css" name="styles.css"  />
+        <h:outputStylesheet library="css" name="mainstyle.css"  />
+        <h:outputStylesheet library="css" name="utilstyle.css"  />
+        
+        <div id="global" align="center">
+
+
+            <div id="resume" align="center">
+
+                 
+                <div class="login">
+
+
+                    <p:focus context="formAuth"/> 
+
+                    <h:form id="formAuth">
+                        <h:graphicImage library="images" name="logo_andriasoft.jpg" width="110px" height="60px" style="margin-left: 200px; margin-top: 10px; margin-bottom: 10px;" />
+                        <div>
+
+                            <h:panelGrid columns="1"  cellpadding="5"  id="acceuilConnexion" styleClass="tableNoBorder" style="border-left: 0px;" >
+
+
+                                <h:outputText value="Login :" style="font-size: 14px !important;"/>
+                                <p:inputText requiredMessage="Saisie de login obligatoire." id="utilisateur" value="#{MBSession.login}"   required="true" label="Login utilisateur" style="width:280px; height: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);"  />  
+
+                                <h:outputText value="Mot de passe : " style="font-size: 14px !important;"/>
+                                <p:password  id="password" requiredMessage="Saisie de mot de passe obligatoire." value="#{MBSession.motdepasse}"   required="true" label="Mot de passe" style="width:280px; height: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);"/>  
+
+
+                                <h:outputText value=""/>
+                                <p:commandButton  styleClass="alignerRight" icon="ui-icon-key" value="Connecter" ajax="false" action="#{MBSession.sauthentifier}"
+                                                  />
+                            </h:panelGrid>
+                        </div>
+                    </h:form>  
+                    
+                </div>
+                <p:messages /> 
+            </div>
+            <div id="piedDepage">
+                <p class="copyright">
+                    <a href="http://www.andriasoft.com" onclick="window.open(this.href);
+                            return false;">&copy; Andriasoft 2013</a>
+                </p>
+            </div>
+        </div>
+    </h:body>
+
+</html>
+
+<!--21/12/2013-->

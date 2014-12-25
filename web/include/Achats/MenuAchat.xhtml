@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition>
+        <h:form>  
+
+            <!--   <h2 id="titreMenu"> Menu </h2> -->
+            <p:accordionPanel  activeIndex="#{MBGestionTabMenu.index}" >
+
+                <p:ajax event="tabChange" listener="#{MBGestionTabMenu.onTabChange}"/>  
+
+                <p:tab title="Produits" id="idGestion">
+                    <div class="sidebar">
+
+                        <div class="menusidebar"  id="clients" >
+                            <h:outputLink 
+                                value="produits.jsf" 
+                                        
+                                        >
+                                <h:outputText   value="Produits" />
+                            </h:outputLink>
+                        </div>
+                        <div class="menusidebar" id="tarification" style="color: white;background-color: #CCCCCC;border-radius: 2px;">
+                            <h:outputLink value="achats.jsf"
+                                        
+                                        >
+                                <h:outputText value="Achats" />
+                            </h:outputLink>
+                        </div>
+
+                        <div class="menusidebar" id="unite">
+                            <h:outputLink value="unite.jsf"
+                                        
+                                        >
+                                <h:outputText value="Unité" />
+                            </h:outputLink>
+                        </div>
+
+                        <div class="menusidebar" id="serviceClient">
+                            <h:outputLink value="servicesClient.jsf"
+                                        
+                                        >
+                                <h:outputText value="Services client" />
+                            </h:outputLink>
+                        </div>
+
+                        <div class="menusidebar" id="services">
+                            <h:outputLink value="services.jsf"
+                                        
+                                        >
+                                <h:outputText value="Préstations" />
+                            </h:outputLink>
+                        </div>
+
+                        <div class="menusidebar" id="tva">
+                            <h:outputLink value="tva.jsf"
+                                        
+                                        >
+                                <h:outputText value="TVA" />
+                            </h:outputLink>
+                        </div>
+                        <div class="menusidebar" id="Etiquettes">
+                            <h:outputLink value="etiquette.jsf">
+                                <h:outputText value="Etiquettes" />
+                            </h:outputLink>
+                        </div>
+                        <div class="menusidebar" id="reglements">
+                            <h:outputLink value="reglements.jsf"
+                                        
+                                        >
+                                <h:outputText value="Règlements" />
+                            </h:outputLink>
+                        </div>
+                        <div class="menusidebar" id="periodeDeFacturation">
+                            <h:outputLink value="periodeDeFacturation.jsf"
+                                        
+                                        >
+                                <h:outputText value="Période de la facturation" />
+                            </h:outputLink>
+                        </div>
+                        <div class="menusidebar">
+                            <h:outputLink   value="admin.jsf"
+                                        
+                                        >
+                                <h:outputText   value="Utilisateurs internes" />
+                            </h:outputLink>
+                        </div>
+                        <div class="menusidebar" id="histoConnexion">
+                            <h:outputLink value="historiqueDeConnexion.jsf"
+                                        
+                                        >
+                                <h:outputText value="Historique connexion" />
+                            </h:outputLink>
+                        </div>
+
+                    </div> 
+                </p:tab>
+
+                <div class="separation"></div>
+                <p:tab title="Stock" id="idStock">
+                    <div class="sidebar">
+                        <div class="menusidebar">
+                            <h:outputLink value="palette.jsf">
+                                <h:outputText value="Gestion des palettes"/>
+                            </h:outputLink>
+                        </div>
+                    </div> 
+
+                    <div class="menusidebar">
+                        <h:outputLink value="historiqueDePalette.jsf">
+                            <h:outputText value="Historique du palette" />
+                        </h:outputLink>
+                    </div>
+                    
+                    <div class="menusidebar">
+                        <h:outputLink value="integration.jsf">
+                            <h:outputText value="Intégration Palette"/>
+                        </h:outputLink>
+                    </div>
+                    
+                    <div class="menusidebar">
+                        <h:outputLink value="integrationColis.jsf">
+                            <h:outputText value="Intégration Colis"/>
+                        </h:outputLink>
+                    </div>
+                </p:tab>
+
+                <div class="separation"></div>
+                <p:tab title="Commandes" id="idCommandes">
+             
+      
+
+                    <div class="sidebar">
+                        <div class="menusidebar">
+                            <h:outputLink value="nouvelleCommande.jsf">
+                                <h:outputText value="Gestion des commandes" />
+                            </h:outputLink>
+                        </div>
+                    </div> 
+                </p:tab>
+                <div class="separation"></div>
+                <p:tab title="Facturation" id="idFacturation">
+                    <div class="sidebar" style="color: white;border-radius: 2px;" >
+                        <div class="menusidebar">
+                            <h:outputLink value="simulationFacture.jsf">
+                                <h:outputText value="Simulation de facturation" />
+                            </h:outputLink>
+                        </div>
+                    </div> 
+                    <div class="sidebar" style="color: white;border-radius: 2px;" >
+                        <div class="menusidebar">
+                            <h:outputLink value="generationFacture.jsf">
+                                <h:outputText value="Génération des factures" />
+                            </h:outputLink>
+                        </div>
+                    </div> 
+                    <div class="sidebar" style="color: white;border-radius: 2px;" >
+                        <div class="menusidebar">
+                            <h:outputLink value="visualisationFacture.jsf">
+                                <h:outputText value="Visualisation des factures" />
+                            </h:outputLink>
+                        </div>
+                    </div> 
+                </p:tab>
+
+
+            
+            </p:accordionPanel>
+        </h:form>  
+
+
+    </ui:composition>
+</html>
+
