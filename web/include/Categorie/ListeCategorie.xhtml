@@ -18,7 +18,7 @@
                          rowsPerPageTemplate="5,10,15" resizableColumns="true">
 
                 <f:facet name="header">  
-                    Liste des produits
+                    Liste des Categorie
                 </f:facet>  
                 <p:column  style="width:20%" filterBy="">
                     <f:facet name="header">  
@@ -52,7 +52,7 @@
                     </f:facet>                     
                     <p:commandButton 
                         icon="ui-icon-pencil"
-                        oncomplete="dlgModifProduits.show()"
+                        oncomplete="dlgModifCategorie.show()"
                         
                         >
                     </p:commandButton>  
@@ -64,7 +64,7 @@
                     </f:facet>                
                     <p:commandButton 
                         icon="ui-icon-trash"
-                        oncomplete="dlgSupprProduit.show()"
+                        oncomplete="dlgSupprCategorie.show()"
                                                             
                         >
                     </p:commandButton>  
@@ -72,8 +72,8 @@
     
             </p:dataTable>
             
-            <ui:include src="/include/Produits/modificationProduits.xhtml"/>
-              <ui:include src="/include/Produits/supprProduit.xhtml"/>
+            <ui:include src="/include/Categorie/modificationCategorie.xhtml"/>
+            <ui:include src="/include/Categorie/supprCategorie.xhtml"/>
              
         </h:form>
     </ui:composition>

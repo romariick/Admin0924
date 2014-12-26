@@ -25,19 +25,19 @@
 
                     </p:panelGrid>
                 </h:form>
-                <ui:include src="/include/Produits/ListeProduits.xhtml"/>                 
+                <ui:include src="/include/Utilisateurs/ListeUtilisateur.xhtml"/>                 
 
                 <h:form style="text-align: left">
                     <p:commandButton icon="ui-icon-plus"   
-                                     oncomplete="dlgAjoutProduits.show()"
-                                     value="Ajouter produit" 
+                                     oncomplete="dlgajout.show()"
+                                     value="Ajouter" 
                                      id="ajoutLink" 
                                      title="Acheter" 
                                      style="margin-top: 10px;margin-bottom: 10px;"
                                      >
                     </p:commandButton>
                     
-                     <ui:include src="/include/Produits/ajoutProduits.xhtml"/>
+                    <ui:include src="/include/Utilisateurs/ajoutUtilisateur.xhtml"/>
                 </h:form>
 
             </p:panel>           

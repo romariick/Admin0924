@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition>
+
+        <p:dialog id="dlgModifiClient" header="Modification d'un produit" widgetVar="dlgModifProduits" modal="true" >
+            <p:panelGrid columns="1" id="ModifProduit" style=" width: 100%;">
+                <p:panelGrid styleClass="tableNoBorder" >
+                    <p:row>                            
+                        <p:column>
+                            <p:outputLabel for="nomModif" value="Nom"/>
+                        </p:column>
+                        <p:column colspan="3">                                
+                            <p:inputText id="nomModif" label="Nom Produit"
+                                         required="true"
+                                         requiredMessage="Nom de la produit obligatoire"
+                                         style="width: 98%;"
+                                         value=""/>
+                        </p:column>
+                    </p:row>
+                    <p:row>                            
+                        <p:column>
+                            <p:outputLabel for="resModif" value="Prix"/>
+                        </p:column>
+                        <p:column colspan="3">                                
+                            <p:inputText id="resModif" label="Prix" 
+                                         style="width: 98%;"
+                                         value=""/>
+                        </p:column>
+                    </p:row>                    
+                    <p:row>                            
+                        <p:column>
+                            <p:outputLabel for="categorieModif" value="Catégorie"/>
+                        </p:column>
+                        <p:column colspan="3">                                
+                            <p:selectOneMenu   id="categorieModif"  value=""  style="width:98%;">  
+                                <f:selectItem itemLabel="Choisir catégorie" itemValue="-1" />
+                                <f:selectItems value=""  /> 
+                            </p:selectOneMenu>  
+                        </p:column>
+                    </p:row>
+
+
+                    <p:row>                            
+                        <p:column>
+                            <p:outputLabel for="marqueModif" value="Marque"/>
+                        </p:column>
+                        <p:column colspan="3">                                
+                            <p:inputText id="marqueModif" label="Marque" 
+                                         style="width: 98%;"
+                                         value=""/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>                            
+                        <p:column>
+                            <p:outputLabel for="promotionModif" value="Promotion"/>
+                        </p:column>
+                        <p:column colspan="3">                                
+                            <p:selectOneMenu   id="promotionModif"  value=""  style="width:98%;">  
+                                <f:selectItem itemLabel="Choisir promotion" itemValue="-1" />
+                                <f:selectItems value=""  /> 
+                            </p:selectOneMenu>  
+                        </p:column>
+                    </p:row>
+                    <p:row>      
+                        <p:column>
+                            <p:outputLabel for="selectDisponibilite" value="Disponibilité"/>
+                        </p:column>
+                        <p:column colspan="3">                                
+                            <p:selectOneMenu   id="selectDisponibilite"  value=""  style="width:98%;">  
+                                <f:selectItem itemLabel="Choisir disponibilite" itemValue="-1" />
+                                <f:selectItems value=""  /> 
+                            </p:selectOneMenu>  
+                        </p:column>
+                    </p:row>
+                    <p:row>                            
+                        <p:column>
+                            <p:outputLabel for="resCodebarre" value="Code barre"/>
+                        </p:column>
+                        <p:column colspan="3">                                
+                            <p:inputText id="resCodebarre" label="Code barre" 
+                                         style="width: 98%;"
+                                         value=""/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>                                
+                            <p:outputLabel for="nombreModif" value="Nombre"/>
+                        </p:column>
+                        <p:column colspan="3">
+                            <p:inputText id="nombreModif" label="Marque" 
+                                         style="width: 98%;"
+                                         value=""/>
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
+                <f:facet name="footer" >
+                    <div style="text-align: center;">
+                        <p:commandButton value="Enregistrer" icon="ui-icon-disk"
+                                         oncomplete="dlgModifProduits.hide();"
+
+                                         actionListener="#{MBClient.ajouterClient()}"
+                                         />
+                        <p:commandButton value="Annuler" icon="ui-icon"
+                                         onclick="dlgModifProduits.hide();"
+                                         />
+                    </div>
+                </f:facet>
+            </p:panelGrid>
+        </p:dialog>
+
+    </ui:composition>
+</html>
+

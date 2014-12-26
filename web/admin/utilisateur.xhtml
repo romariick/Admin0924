@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:body>
+        <ui:composition template="../template/commonLayout.xhtml">
+
+            <ui:define name="title"> logistique</ui:define>
+
+            <ui:define name="identity"></ui:define>
+
+            <ui:define name="menu">
+
+                <ui:include src="/include/Utilisateurs/MenuUtilisateur.xhtml"/> 
+
+            </ui:define>
+
+            <ui:define name="contentgestion">
+                <h2 class="titreStyle">Gestion > Utilisateur</h2> 
+                <p:growl id="messageClient" showDetail="true" life="7000" autoUpdate="false"/>
+                <ui:include src="/include/Utilisateurs/SelectListeUtilisateur.xhtml"/>
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>
+
+

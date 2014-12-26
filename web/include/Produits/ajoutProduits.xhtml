@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition>
+
+        <p:dialog id="dlgAjoutClient" header="Ajout d'un nouveau produit" widgetVar="dlgAjoutProduits" modal="true" >
+            <p:panelGrid columns="1" id="panelAjoutClient" style=" width: 100%;">
+                <p:panelGrid styleClass="tableNoBorder" >
+                    <p:row>                            
+                        <p:column>
+                            <p:outputLabel for="nomAjout" value="Nom"/>
+                        </p:column>
+                        <p:column colspan="3">                                
+                            <p:inputText id="nomAjout" label="Nom Produit"
+                                         required="true"
+                                         requiredMessage="Nom de la produit obligatoire"
+                                         style="width: 98%;"
+                                         value=""/>
+                        </p:column>
+                    </p:row>
+                    <p:row>                            
+                        <p:column>
+                            <p:outputLabel for="resAjout" value="Prix"/>
+                        </p:column>
+                        <p:column colspan="3">                                
+                            <p:inputText id="resAjout" label="Prix" 
+                                         style="width: 98%;"
+                                         value=""/>
+                        </p:column>
+                    </p:row>                    
+                    <p:row>                            
+                        <p:column>
+                            <p:outputLabel for="categorieAjout" value="Catégorie"/>
+                        </p:column>
+                        <p:column colspan="3">                                
+                            <p:selectOneMenu   id="categorieAjout"  value=""  style="width:98%;">  
+                                <f:selectItem itemLabel="Choisir catégorie" itemValue="-1" />
+                                <f:selectItems value=""  /> 
+                            </p:selectOneMenu>  
+                        </p:column>
+                    </p:row>
+
+
+                    <p:row>                            
+                        <p:column>
+                            <p:outputLabel for="marqueAjout" value="Marque"/>
+                        </p:column>
+                        <p:column colspan="3">                                
+                            <p:inputText id="marqueAjout" label="Marque" 
+                                         style="width: 98%;"
+                                         value=""/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>                            
+                        <p:column>
+                            <p:outputLabel for="promotionAjout" value="Promotion"/>
+                        </p:column>
+                        <p:column colspan="3">                                
+                            <p:selectOneMenu   id="promotionAjout"  value=""  style="width:98%;">  
+                                <f:selectItem itemLabel="Choisir promotion" itemValue="-1" />
+                                <f:selectItems value=""  /> 
+                            </p:selectOneMenu>  
+                        </p:column>
+                    </p:row>
+                    <p:row>      
+                        <p:column>
+                            <p:outputLabel for="selectDisponibilite" value="Disponibilité"/>
+                        </p:column>
+                        <p:column colspan="3">                                
+                            <p:selectOneMenu   id="selectDisponibilite"  value=""  style="width:98%;">  
+                                <f:selectItem itemLabel="Choisir disponibilite" itemValue="-1" />
+                                <f:selectItems value=""  /> 
+                            </p:selectOneMenu>  
+                        </p:column>
+                    </p:row>
+                    <p:row>                            
+                        <p:column>
+                            <p:outputLabel for="resCodebarre" value="Code barre"/>
+                        </p:column>
+                        <p:column colspan="3">                                
+                            <p:inputText id="resCodebarre" label="Code barre" 
+                                         style="width: 98%;"
+                                         value=""/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>                                
+                            <p:outputLabel for="nombreAjout" value="Nombre"/>
+                        </p:column>
+                        <p:column colspan="3">
+                            <p:inputText id="nombreAjout" label="Marque" 
+                                         style="width: 98%;"
+                                         value=""/>
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
+                <f:facet name="footer" >
+                    <div style="text-align: center;">
+                        <p:commandButton value="Enregistrer" icon="ui-icon-disk"
+                                         oncomplete="dlgAjoutProduits.hide();"
+
+                                         actionListener="#{MBClient.ajouterClient()}"
+                                         />
+                        <p:commandButton value="Annuler" icon="ui-icon"
+                                         onclick="dlgAjoutProduits.hide();"
+                                         />
+                    </div>
+                </f:facet>
+            </p:panelGrid>
+        </p:dialog>
+
+    </ui:composition>
+</html>
+

@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition>
+
+        <p:dialog id="dlgAjoutCategorie" header="Ajout d'un nouveau categorie" widgetVar="dlgAjoutCategorie" modal="true" >
+            <p:panelGrid columns="1" id="panelAjoutClient" style=" width: 100%;">
+                <p:panelGrid styleClass="tableNoBorder" >
+                    <p:row>                            
+                        <p:column>
+                            <p:outputLabel for="nomAjout" value="Nom"/>
+                        </p:column>
+                        <p:column colspan="3">                                
+                            <p:inputText id="nomAjout" label="Nom Catégorie"
+                                         required="true"
+                                         requiredMessage="Nom de la catégorie obligatoire"
+                                         style="width: 98%;"
+                                         value=""/>
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
+                <f:facet name="footer" >
+                    <div style="text-align: center;">
+                        <p:commandButton value="Enregistrer" icon="ui-icon-disk"
+                                         oncomplete="dlgAjoutCategorie.hide();"
+
+                                         actionListener="#{MBClient.ajouterClient()}"
+                                         />
+                        <p:commandButton value="Annuler" icon="ui-icon"
+                                         onclick="dlgAjoutCategorie.hide();"
+                                         />
+                    </div>
+                </f:facet>
+            </p:panelGrid>
+        </p:dialog>
+
+    </ui:composition>
+</html>
+
