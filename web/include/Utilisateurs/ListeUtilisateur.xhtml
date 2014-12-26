@@ -10,41 +10,36 @@
         <p:growl id="messageSupprClient" showDetail="true" />
         <h:form id="client">
             <p:dataTable id="tableClient"
-                         value="#{MBArticle.lstArticle}"                         
+                         value="#{MBUtilisateur.lstUtilisateur}"                         
                          style="margin-top: 10px;"
-                         var="produit"
+                         var="utilisateurs"
                          paginator="true" rows="10" 
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                          rowsPerPageTemplate="5,10,15" resizableColumns="true">
 
                 <f:facet name="header">  
-                    Liste des produits
+                    Liste des utilisateurs
                 </f:facet>  
                 <p:column  style="width:20%" filterBy="">
                     <f:facet name="header">  
-                        <h:outputText value="Nom Produit" />  
+                        <h:outputText value="Nom" />  
                     </f:facet>  
-                    <h:outputText value="#{produit.nomproduit}" /> 
+                    <h:outputText value="#{utilisateurs.nom}" /> 
                 </p:column>  
 
                 <p:column  style="width:20%" filterBy="">
                     <f:facet name="header">  
-                        <h:outputText value="Prix" />  
+                        <h:outputText value="Prénom" />  
                     </f:facet>  
-                    <h:outputText value="#{produit.prix}" /> 
+                    <h:outputText value="#{utilisateurs.prenom}" /> 
                 </p:column>   
                 <p:column  style="width:20%" filterBy="">
                     <f:facet name="header">  
-                        <h:outputText value="Code barre" />  
+                        <h:outputText value="Login" />  
                     </f:facet>  
-                    <h:outputText value="#{produit.codeBarre}" /> 
+                    <h:outputText value="#{utilisateurs.login}" /> 
                 </p:column> 
-                <p:column  style="width:20%" filterBy="">
-                    <f:facet name="header">  
-                        <h:outputText value="Reduction" />  
-                    </f:facet>  
-                    <h:outputText value="#{produit.reduction}" /> 
-                </p:column>
+          
 
             <p:column  styleClass="alignCenter" style="width:10%">
                     <f:facet name="header">  
@@ -53,8 +48,9 @@
                     <p:commandButton 
                         icon="ui-icon-pencil"
                         oncomplete="dlgmodif.show()"
-                        
+                        update=":formModifUtilisateurs"
                         >
+                        <f:setPropertyActionListener value="#{utilisateurs}" target="#{MBUtilisateur.modificationUtilisateur}" /> 
                     </p:commandButton>  
                 </p:column> 
 
@@ -72,10 +68,11 @@
     
             </p:dataTable>
             
-            <ui:include src="/include/Utilisateurs/ModifUtilisateur.xhtml"/>
+            
             <ui:include src="/include/Utilisateurs/SupprUtilisateur.xhtml"/>
              
         </h:form>
+        <ui:include src="/include/Utilisateurs/ModifUtilisateur.xhtml"/>
     </ui:composition>
 </html>
 

@@ -34,7 +34,7 @@ public class UtilisateurHandler extends DefaultHandler {
 
     private StringBuffer buffer;
     private static List<Utilisateur> listUtilisateur = new ArrayList<Utilisateur>();
-    private static  Utilisateur ajoutUtilisateur = new Utilisateur();
+    private static Utilisateur ajoutUtilisateur = new Utilisateur();
 
     /**
      * Constructeur par defaut. Initialise le buffer.
@@ -49,6 +49,7 @@ public class UtilisateurHandler extends DefaultHandler {
      */
     @Override
     public void startDocument() throws SAXException {
+        listUtilisateur.clear();
         System.out.println("Debut de l'analyse" + System.getProperty("line.separator"));
     }
 
@@ -93,11 +94,15 @@ public class UtilisateurHandler extends DefaultHandler {
 
         } else if (qName.equals("nom")) {
             buffer = new StringBuffer();
-        } else if(qName.equals("prenom")) {
-            buffer = new StringBuffer();           
-        }else if(qName.equals("login")){
-            buffer = new StringBuffer(); 
-        }else{
+        } else if (qName.equals("prenom")) {
+            buffer = new StringBuffer();
+        } else if (qName.equals("login")) {
+            buffer = new StringBuffer();
+        } else if (qName.equals("idutilisateur")) {
+            buffer = new StringBuffer();
+        } else if (qName.equals("motdepasse")) {
+            buffer = new StringBuffer();
+        } else {
             buffer = null;
         }
     }
@@ -119,15 +124,20 @@ public class UtilisateurHandler extends DefaultHandler {
         if (qName.equals("nom")) {
             ajoutUtilisateur.setNom(buffer.toString());
             buffer = null;
-        }else
-        if (qName.equals("prenom")) {
+        } else if (qName.equals("prenom")) {
             ajoutUtilisateur.setPrenom(buffer.toString());
             buffer = null;
-        }else
-        if (qName.equals("login")) {
+        } else if (qName.equals("login")) {
             ajoutUtilisateur.setLogin(buffer.toString());
             buffer = null;
+        } else if (qName.equals("idutilisateur")) {
+            ajoutUtilisateur.setIdutilisateur(Integer.parseInt(buffer.toString()));
+            buffer = null;
 
+        }else if(qName.equals("motdepasse")){
+            ajoutUtilisateur.setMotdepasse(buffer.toString());
+            buffer = null;
+            
         }
 
         //ajoutArticle.setListeArticle(getListArctile());
@@ -146,7 +156,5 @@ public class UtilisateurHandler extends DefaultHandler {
     public static void setAjoutUtilisateur(Utilisateur ajoutUtilisateur) {
         ajoutUtilisateur = ajoutUtilisateur;
     }
-
-  
 
 }

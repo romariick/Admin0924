@@ -15,6 +15,7 @@ public class Utilisateur {
     private String nom;
     private String prenom;
     private String login;
+    private String motdepasse;
 
     /**
      * @return the idutilisateur
@@ -70,6 +71,20 @@ public class Utilisateur {
      */
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    /**
+     * @return the motdepasse
+     */
+    public String getMotdepasse() {
+        return motdepasse;
+    }
+
+    /**
+     * @param motdepasse the motdepasse to set
+     */
+    public void setMotdepasse(String motdepasse) {
+        this.motdepasse = motdepasse;
     }
             
     

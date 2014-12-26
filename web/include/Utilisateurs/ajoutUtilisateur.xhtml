@@ -14,41 +14,25 @@
             <h:form id="formAjoutUtilisateurs">
                 <h:panelGrid columns="2" cellpadding="5" id="panelAjoutUtilisateur">
                     <p:outputLabel for="nomUtilisateur">Nom</p:outputLabel>
-                    <p:inputText value="" id="nomUtilisateur" required="true" requiredMessage="Vous devez saisir un nom d'utilisateur" />
+                    <p:inputText value="#{MBUtilisateur.ajoutUtilisateur.nom}" id="nomUtilisateur" required="true" requiredMessage="Vous devez saisir un nom d'utilisateur" />
 
                     <p:outputLabel for="prenomUtilisateur">Prénom</p:outputLabel>
-                    <p:inputText value="" id="prenomUtilisateur" required="true" requiredMessage="Vous devez saisir le prénom de l'utilisateur" />
+                    <p:inputText value="#{MBUtilisateur.ajoutUtilisateur.prenom}" id="prenomUtilisateur" required="true" requiredMessage="Vous devez saisir le prénom de l'utilisateur" />
 
                     <p:outputLabel for="login">Login</p:outputLabel>
-                    <p:inputText value="" id="login" required="true" requiredMessage="Vous devez saisir le login de l'utilisateur" />
+                    <p:inputText value="#{MBUtilisateur.ajoutUtilisateur.login}" id="login" required="true" requiredMessage="Vous devez saisir le login de l'utilisateur" />
 
 
                     <p:outputLabel for="motdepasse">Mot de passe</p:outputLabel>
-                    <p:inputText value="" id="motdepasse" required="true"  requiredMessage="Vous devez saisir un mot de passe"/>
+                    <p:inputText value="#{MBUtilisateur.ajoutUtilisateur.motdepasse}" id="motdepasse" required="true"  requiredMessage="Vous devez saisir un mot de passe"/>
 
-                    <p:outputLabel for="niveau">Niveau</p:outputLabel>
-                    <p:selectOneMenu id="niveau" value="" required="true" requiredMessage="Vous devez choisir un niveau">
-                        <f:selectItem itemLabel="Choisir un niveau" itemValue="" />
-                        <f:selectItem itemLabel="Niveau 1" itemValue="1" />
-                        <f:selectItem itemLabel="Niveau 2" itemValue="2" />
-                        <f:selectItem itemLabel="Niveau 3" itemValue="3" />
-                        <f:selectItem itemLabel="Niveau 4" itemValue="4" />
-                    </p:selectOneMenu>
-
-                    <p:outputLabel for="email">Email</p:outputLabel>
-                    <p:inputText value="" id="email"  label="Email" requiredMessage="Vous devez saisir un email"/>
-
-                    <p:outputLabel for="telephone">Téléphone</p:outputLabel>
-                    <p:inputText value="" id="telephone"  label="Téléphone" requiredMessage="Vous devez choisir un téléphone"/>
-
-                    <p:outputLabel for="mobile">Mobile</p:outputLabel>
-                    <p:inputText value="" id="mobile"  label="Mobile" requiredMessage="Vous devez choisir un mobile"/>
 
 
 
                     <f:facet name="footer">
                       
                         <p:commandButton icon="ui-icon-disk"
+                                         actionListener="#{MBUtilisateur.ajouterUtilisateur()}"
                                          style="margin-right: 10px;"
                                          oncomplete="dlgajout.hide();"
                                          id="ajoutBouton" value="Ajouter" 
