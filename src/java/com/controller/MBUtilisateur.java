@@ -6,7 +6,6 @@
 package com.controller;
 
 import com.metier.Utilisateur;
-import com.parseur.ArticleHandler;
 import com.parseur.UtilisateurHandler;
 import java.io.BufferedReader;
 import java.io.File;
@@ -49,6 +48,7 @@ public class MBUtilisateur implements Serializable {
 
     private Utilisateur ajoutUtilisateur = new Utilisateur();
     private Utilisateur modificationUtilisateur = new Utilisateur();
+    private Utilisateur supprUtilisateur = new Utilisateur();
     private List<Utilisateur> lstUtilisateur = new ArrayList<Utilisateur>();
 
     @PostConstruct
@@ -59,7 +59,7 @@ public class MBUtilisateur implements Serializable {
     public void recupererListeUtilisateur() {
         try {
             obtenirListeUtilisateurs();
-            lstUtilisateur.clear();
+            //lstUtilisateur.clear();
             lstUtilisateur = UtilisateurHandler.getListUtilisateur();
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(MBUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
@@ -73,11 +73,10 @@ public class MBUtilisateur implements Serializable {
     public void modifierUtilisateur() throws IOException {
         String login = modificationUtilisateur.getLogin();
         String mdp = modificationUtilisateur.getMotdepasse();
-        String url = "http://localhost:8080/CaisseApplication-war/webresources/listeUtilisateur/modifierUtisateurById/"+modificationUtilisateur.getIdutilisateur().toString()+"-"+modificationUtilisateur.getNom()+"-"+modificationUtilisateur.getPrenom()+"-"+modificationUtilisateur.getLogin()+"-"+modificationUtilisateur.getMotdepasse();
-       
-        
+        String url = "http://localhost:8080/CaisseApplication-war/webresources/listeUtilisateur/modifierUtisateurById/" + modificationUtilisateur.getIdutilisateur().toString() + "-" + modificationUtilisateur.getNom() + "-" + modificationUtilisateur.getPrenom() + "-" + modificationUtilisateur.getLogin() + "-" + modificationUtilisateur.getMotdepasse();
+
 //       
-        String ret =  envoyerEtRecevoirMessage(url, "POST");;
+        String ret = envoyerEtRecevoirMessage(url, "POST");
         if (ret.equals("succes")) {
             recupererListeUtilisateur();
         }
@@ -96,6 +95,17 @@ public class MBUtilisateur implements Serializable {
         }
     }
 
+    public void supprimerUtilisateur(){
+        try {
+           String ret = envoyerEtRecevoirMessage("http://localhost:8080/CaisseApplication-war/webresources/listeUtilisateur/supprimerUtilisateur/"+supprUtilisateur.getLogin()+"-"+supprUtilisateur.getMotdepasse(), "POST");
+           if(ret.equals("succes")){
+                recupererListeUtilisateur();
+           }
+        } catch (IOException ex) {
+            Logger.getLogger(MBUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     public void obtenirListeUtilisateurs() throws ParserConfigurationException, SAXException, TransformerException {
         try {
             String ret = envoyerEtRecevoirMessage("http://localhost:8080/CaisseApplication-war/webresources/listeUtilisateur", "GET");
@@ -147,8 +157,12 @@ public class MBUtilisateur implements Serializable {
 
     public String envoyerEtRecevoirMessage(String adresseUrl, String methodeHTTP) throws MalformedURLException, IOException {
 
-        URL url = new URL(adresseUrl);
+        String traitement = adresseUrl.replaceAll(" ", "%20");
+        // String retencode = URLEncoder.encode(traitement, "UTF-8");
+        URL url = new URL(traitement);
+
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
         conn.setRequestMethod(methodeHTTP);
         StringBuilder sb = new StringBuilder();
         conn.setRequestProperty("Accept", "application/xml");
@@ -213,4 +227,19 @@ public class MBUtilisateur implements Serializable {
         this.modificationUtilisateur = modificationUtilisateur;
     }
 
+    /**
+     * @return the supprUtilisateur
+     */
+    public Utilisateur getSupprUtilisateur() {
+        return supprUtilisateur;
+    }
+
+    /**
+     * @param supprUtilisateur the supprUtilisateur to set
+     */
+    public void setSupprUtilisateur(Utilisateur supprUtilisateur) {
+        this.supprUtilisateur = supprUtilisateur;
+    }
+
+  
 }

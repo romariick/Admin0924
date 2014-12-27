@@ -34,7 +34,7 @@ public class MBGestionTabMenu implements Serializable {
             setIndex("1");
         } else if (index.equals("idStock")) {
 
-            setIndex("2");
+            setIndex("1");
         } else if (index.equals("idCommandes")) {
             setIndex("3");
         } else if (index.equals("idFacturation")) {

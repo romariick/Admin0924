@@ -63,6 +63,8 @@
                         oncomplete="dlgsupprUtilisateurs.show()"
                                                             
                         >
+                        
+                        <f:setPropertyActionListener value="#{utilisateurs}" target="#{MBUtilisateur.supprUtilisateur}" /> 
                     </p:commandButton>  
                 </p:column> 
     

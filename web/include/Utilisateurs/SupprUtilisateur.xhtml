@@ -13,10 +13,10 @@
                              header="Supprimer utilisateur" severity="alert" widgetVar="dlgsupprUtilisateurs">
 
                 <p:commandButton  id="confirm" value="Oui" 
-                                 
-                                 
-                                 oncomplete="dlgsupprUtilisateurs.hide()" 
-                                 />
+                                  actionListener="#{MBUtilisateur.supprimerUtilisateur}"
+                                  update=":client"
+                                  oncomplete="dlgsupprUtilisateurs.hide()" 
+                                  />
                 <p:commandButton id="decline" value="Non" onclick="dlgsupprUtilisateurs.hide()" type="button" />
 
             </p:confirmDialog>
