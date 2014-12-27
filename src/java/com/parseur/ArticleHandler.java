@@ -20,7 +20,7 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class ArticleHandler extends DefaultHandler {
 
-        /**
+    /**
      * @return the listArctile
      */
     public static List<Article> getListArctile() {
@@ -34,7 +34,6 @@ public class ArticleHandler extends DefaultHandler {
         listArctile = aListArctile;
     }
 
-    
     private StringBuffer buffer;
     private static List<Article> listArctile = new ArrayList<Article>();
     private Article ajoutArticle = new Article();
@@ -97,14 +96,16 @@ public class ArticleHandler extends DefaultHandler {
 
         } else if (qName.equals("nomproduit")) {
             buffer = new StringBuffer();
-        } else if(qName.equals("prix")) {
-            buffer = new StringBuffer();           
-        }else if(qName.equals("marque")){
+        } else if (qName.equals("prix")) {
             buffer = new StringBuffer();
-        }else if(qName.equals("codebarre")){
+        } else if (qName.equals("marque")) {
             buffer = new StringBuffer();
-            
-        }else{
+        } else if (qName.equals("codebarre")) {
+            buffer = new StringBuffer();
+        } else if (qName.equals("nombre")) {
+            buffer = new StringBuffer();
+
+        } else {
             buffer = null;
         }
     }
@@ -126,22 +127,22 @@ public class ArticleHandler extends DefaultHandler {
         if (qName.equals("nomproduit")) {
             ajoutArticle.setNomproduit(buffer.toString());
             buffer = null;
-        }else
-        if (qName.equals("prix")) {
+        } else if (qName.equals("prix")) {
             ajoutArticle.setPrix(buffer.toString());
             buffer = null;
-        }else
-        if (qName.equals("marque")) {
+        } else if (qName.equals("marque")) {
             ajoutArticle.setMarque(buffer.toString());
             buffer = null;
 
-        }else 
-            if(qName.equals("codebarre")){
-                ajoutArticle.setCodeBarre(buffer.toString());
-                buffer = null;
-                
-            }
+        } else if (qName.equals("codebarre")) {
+            ajoutArticle.setCodeBarre(buffer.toString());
+            buffer = null;
 
+        } else if (qName.equals("nombre")) {
+            ajoutArticle.setNombre(buffer.toString());
+            buffer = null;
+
+        }
         //ajoutArticle.setListeArticle(getListArctile());
     }
 

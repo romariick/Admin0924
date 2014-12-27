@@ -27,6 +27,7 @@ public class Article {
     private String etat;
     public List<Article> listeArticle;
     private boolean selectProduit = false;
+    private String nombre;
 
     public Article() {
     }
@@ -211,6 +212,20 @@ public class Article {
      */
     public void setSelectProduit(boolean selectProduit) {
         this.selectProduit = selectProduit;
+    }
+
+    /**
+     * @return the nombre
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * @param nombre the nombre to set
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
   

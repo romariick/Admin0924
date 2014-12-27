@@ -66,20 +66,31 @@ public class MBArticle implements Serializable {
     private List<Article> lstAchat = new ArrayList<Article>();
     private List<Article> tempAchat = new ArrayList<Article>();
     private static List<Article> sauvegardeAchatNonPayez = new ArrayList<Article>();
-    private  Double netApayez = 0.0;
-    private static Double sauvegardeNonPayez = 0.0; 
+    private Article ajoutArticle = new Article();
+    private Article modifArticle = new Article();
+    private Article supprArticle = new Article();
+    private Integer recupIdCategorie;
+    private Integer recupIdCategorieModif;
+    private String recupDisponibilite;
+    private String recupDispoModif;
+    private Double netApayez = 0.0;
+    private static Double sauvegardeNonPayez = 0.0;
     private String codebarre = "";
     private Integer idcategorie;
     private boolean recupSelectionner;
+    private List<String> lstDispo = new ArrayList<String>();
 
     @PostConstruct
     public void init() {
         try {
 
-            parserXML("http://localhost:8080/CaisseApplication-war/webresources/listearticle", "GET");
-            lstArticle.clear();
-            lstArticle = ArticleHandler.getListArctile();
-            if(!sauvegardeAchatNonPayez.isEmpty()){
+            lstDispo.add("Oui");
+            lstDispo.add("Non");
+
+            initialiserListeProduit();
+            //lstArticle.clear();
+
+            if (!sauvegardeAchatNonPayez.isEmpty()) {
                 tempAchat = sauvegardeAchatNonPayez;
                 netApayez = sauvegardeNonPayez;
             }
@@ -171,44 +182,9 @@ public class MBArticle implements Serializable {
 
     }
 
-    public void acheterProduit() throws IOException, ParserConfigurationException, SAXException, TransformerException {
-        String str = listerArticle("http://localhost:8080/CaisseApplication-war/webresources/listearticle/obtenirArticleByCodeBarre/" + codebarre, "POST");
-
-        if (!str.isEmpty()) {
-            stringToDom(str);
-            if (!codebarre.isEmpty()) {
-                String acheter = listerArticle("http://localhost:8080/CaisseApplication-war/webresources/listearticle/acheterArticleByCodeBarre/" + codebarre, "POST");
-                if (acheter.equals("achatok")) {
-                    lstAchat = ArticleHandler.getListArctile();
-
-                    Article sauvarticle = new Article();
-
-                    sauvarticle.setCodeBarre(lstAchat.get(0).getCodeBarre());
-                    sauvarticle.setPrix(lstAchat.get(0).getPrix());
-                    sauvarticle.setNomproduit(lstAchat.get(0).getNomproduit());
-                    sauvarticle.setDisponibilite(lstAchat.get(0).getDisponibilite());
-                    sauvarticle.setReduction(lstAchat.get(0).getReduction());
-
-                    netApayez += Double.parseDouble(lstAchat.get(0).getPrix());
-                    tempAchat.add(sauvarticle);
-                    
-                    sauvegardeAchatNonPayez = tempAchat;
-                    sauvegardeNonPayez = netApayez;
-                    int debug = 0;
-
-                }
-            }
-        }
-
-    }
-
     public void obtenireParCategorie() {
         try {
             parserXMLParCategorie("http://localhost:8080/CaisseApplication-war/webresources/listearticle/obtenirArticleByCategorie/" + idcategorie.toString(), "POST");
-//            lstArticle.clear();
-//            lstArticle = new ArrayList<Article>();
-//            lstArticle = ArticleHandler.getListArctile();
-//            ArticleHandler.getListArctile();
 
         } catch (Exception ex) {
             Logger.getLogger(MBArticle.class.getName()).log(Level.SEVERE, null, ex);
@@ -218,9 +194,9 @@ public class MBArticle implements Serializable {
     public void recupererListeProduitSelectionner() throws IOException, ParserConfigurationException, SAXException, TransformerException {
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String codebarre = params.get("codebarre");
-         
+
         String str = listerArticle("http://localhost:8080/CaisseApplication-war/webresources/listearticle/obtenirArticleByCodeBarre/" + codebarre, "POST");
-        
+
         if (!str.isEmpty()) {
             stringToDom(str);
 //            List<Article> tempList = new ArrayList<Article>();
@@ -237,11 +213,103 @@ public class MBArticle implements Serializable {
 //        
     }
 
-    public void validerAchat(){
+    public void initialiserListeProduit() {
+        try {
+            parserXML("http://localhost:8080/CaisseApplication-war/webresources/listearticle", "GET");
+            lstArticle = ArticleHandler.getListArctile();
+        } catch (Exception ex) {
+            Logger.getLogger(MBArticle.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void ajouterProduit() {
+        try {
+            ajoutArticle.setEtat("Etat");
+
+            String ret = envoyerEtRecevoirMessage("http://localhost:8080/CaisseApplication-war/webresources/listearticle/ajouterArticle/" + ajoutArticle.getNomproduit()
+                    + "-" + ajoutArticle.getPrix()
+                    + "-" + ajoutArticle.getMarque()
+                    + "-" + ajoutArticle.getPromotion()
+                    + "-" + ajoutArticle.getReduction()
+                    + "-" + recupDisponibilite
+                    + "-" + ajoutArticle.getCodeBarre()
+                    + "-" + ajoutArticle.getEtat()
+                    + "-" + ajoutArticle.getNombre()+ "-" + recupIdCategorie.toString(), "POST");
+
+            if (ret.equals("succes")) {
+                initialiserListeProduit();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(MBArticle.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void modifierProduit() {
+        try {
+            modifArticle.setPromotion("Oui");
+            modifArticle.setReduction("Oui");
+            String ret = envoyerEtRecevoirMessage("http://localhost:8080/CaisseApplication-war/webresources/listearticle/modifierArticleByCodeBarre/" + modifArticle.getCodeBarre() + "-" + modifArticle.getMarque() + "-" + modifArticle.getNomproduit()
+                    + "-" + modifArticle.getPrix()
+                    + "-" + modifArticle.getPromotion()
+                    + "-" + modifArticle.getReduction()
+                    + "-" + recupDispoModif
+                    + "-" + modifArticle.getPrix(), "POST");
+
+            if (ret.equals("succes")) {
+                initialiserListeProduit();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(MBArticle.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void supprimerProduit() {
+        try {
+            String ret = envoyerEtRecevoirMessage("http://localhost:8080/CaisseApplication-war/webresources/listearticle/supprimerArticle/" + supprArticle.getCodeBarre(), "POST");
+            if (ret.equals("succes")) {
+                initialiserListeProduit();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(MBArticle.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public String envoyerEtRecevoirMessage(String adresseUrl, String methodeHTTP) throws MalformedURLException, IOException {
+
+        String traitement = adresseUrl.replaceAll(" ", "%20");
+        // String retencode = URLEncoder.encode(traitement, "UTF-8");
+        URL url = new URL(traitement);
+
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+        conn.setRequestMethod(methodeHTTP);
+        StringBuilder sb = new StringBuilder();
+        conn.setRequestProperty("Accept", "application/xml");
+
+        if (conn.getResponseCode() != 200) {
+            throw new RuntimeException("Failed : HTTP error code : "
+                    + conn.getResponseCode());
+        }
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(
+                (conn.getInputStream())));
+
+        String output;
+
+        while ((output = br.readLine()) != null) {
+            sb.append(output);
+        }
+        conn.disconnect();
+
+        return sb.toString();
+    }
+
+    public void validerAchat() {
         sauvegardeAchatNonPayez.clear();
         sauvegardeNonPayez = 0.0;
         netApayez = 0.0;
     }
+
     /**
      * @return the lstArticle
      */
@@ -336,7 +404,7 @@ public class MBArticle implements Serializable {
     /**
      * @param recupSelectionner the recupSelectionner to set
      */
-    public  void setRecupSelectionner(boolean recupSelectionner) {
+    public void setRecupSelectionner(boolean recupSelectionner) {
         this.recupSelectionner = recupSelectionner;
     }
 
@@ -352,6 +420,118 @@ public class MBArticle implements Serializable {
      */
     public static void setSauvegardeAchatNonPayez(List<Article> sauvegardeAchatNonPayez) {
         sauvegardeAchatNonPayez = sauvegardeAchatNonPayez;
+    }
+
+    /**
+     * @return the ajoutArticle
+     */
+    public Article getAjoutArticle() {
+        return ajoutArticle;
+    }
+
+    /**
+     * @param ajoutArticle the ajoutArticle to set
+     */
+    public void setAjoutArticle(Article ajoutArticle) {
+        this.ajoutArticle = ajoutArticle;
+    }
+
+    /**
+     * @return the recupIdCategorie
+     */
+    public Integer getRecupIdCategorie() {
+        return recupIdCategorie;
+    }
+
+    /**
+     * @param recupIdCategorie the recupIdCategorie to set
+     */
+    public void setRecupIdCategorie(Integer recupIdCategorie) {
+        this.recupIdCategorie = recupIdCategorie;
+    }
+
+    /**
+     * @return the recupDisponibilite
+     */
+    public String getRecupDisponibilite() {
+        return recupDisponibilite;
+    }
+
+    /**
+     * @param recupDisponibilite the recupDisponibilite to set
+     */
+    public void setRecupDisponibilite(String recupDisponibilite) {
+        this.recupDisponibilite = recupDisponibilite;
+    }
+
+    /**
+     * @return the lstDispo
+     */
+    public List<String> getLstDispo() {
+        return lstDispo;
+    }
+
+    /**
+     * @param lstDispo the lstDispo to set
+     */
+    public void setLstDispo(List<String> lstDispo) {
+        this.lstDispo = lstDispo;
+    }
+
+    /**
+     * @return the modifArticle
+     */
+    public Article getModifArticle() {
+        return modifArticle;
+    }
+
+    /**
+     * @param modifArticle the modifArticle to set
+     */
+    public void setModifArticle(Article modifArticle) {
+        this.modifArticle = modifArticle;
+    }
+
+    /**
+     * @return the recupIdCategorieModif
+     */
+    public Integer getRecupIdCategorieModif() {
+        return recupIdCategorieModif;
+    }
+
+    /**
+     * @param recupIdCategorieModif the recupIdCategorieModif to set
+     */
+    public void setRecupIdCategorieModif(Integer recupIdCategorieModif) {
+        this.recupIdCategorieModif = recupIdCategorieModif;
+    }
+
+    /**
+     * @return the recupDispoModif
+     */
+    public String getRecupDispoModif() {
+        return recupDispoModif;
+    }
+
+    /**
+     * @param recupDispoModif the recupDispoModif to set
+     */
+    public void setRecupDispoModif(String recupDispoModif) {
+        this.recupDispoModif = recupDispoModif;
+    }
+
+    /**
+     * @return the supprArticle
+     */
+    public Article getSupprArticle() {
+        return supprArticle;
+    }
+
+    /**
+     * @param supprArticle the supprArticle to set
+     */
+    public void setSupprArticle(Article supprArticle) {
+        this.supprArticle = supprArticle;
     }
 
 }

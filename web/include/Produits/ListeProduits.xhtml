@@ -53,8 +53,9 @@
                     <p:commandButton 
                         icon="ui-icon-pencil"
                         oncomplete="dlgModifProduits.show()"
-                        
+                        update=":formModifProduit"
                         >
+                        <f:setPropertyActionListener value="#{produit}" target="#{MBArticle.modifArticle}" /> 
                     </p:commandButton>  
                 </p:column> 
 
@@ -67,15 +68,14 @@
                         oncomplete="dlgSupprProduit.show()"
                                                             
                         >
+                        <f:setPropertyActionListener value="#{produit}" target="#{MBArticle.supprArticle}" /> 
                     </p:commandButton>  
                 </p:column> 
     
-            </p:dataTable>
-            
-            <ui:include src="/include/Produits/modificationProduits.xhtml"/>
-              <ui:include src="/include/Produits/supprProduit.xhtml"/>
-             
+            </p:dataTable>         
+            <ui:include src="/include/Produits/supprProduit.xhtml"/>
         </h:form>
+        <ui:include src="/include/Produits/modificationProduits.xhtml"/>
     </ui:composition>
 </html>
 

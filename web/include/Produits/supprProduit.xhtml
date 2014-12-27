@@ -11,8 +11,9 @@
         <p:confirmDialog id="dlgSupprContact" message="Etes-vous sûr de vouloir supprimer?"
                          header="Supprimer Contact" severity="alert" widgetVar="dlgSupprProduit">
 
-            <p:commandButton   id="confirm" value="Oui" oncomplete="dlgSupprProduit.hide();dlgSupprProduit.show();" 
-                              
+            <p:commandButton   id="confirm" value="Oui" oncomplete="dlgSupprProduit.hide();" 
+                               actionListener="#{MBArticle.supprimerProduit()}"
+                               update=":client"
                                />
             <p:commandButton id="decline" value="Non" onclick="dlgSupprProduit.hide();" type="button" />
 

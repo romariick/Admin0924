@@ -9,6 +9,7 @@
     <ui:composition>
 
         <p:dialog id="dlgModifiClient" header="Modification d'un produit" widgetVar="dlgModifProduits" modal="true" >
+            <h:form id="formModifProduit">
             <p:panelGrid columns="1" id="ModifProduit" style=" width: 100%;">
                 <p:panelGrid styleClass="tableNoBorder" >
                     <p:row>                            
@@ -20,7 +21,7 @@
                                          required="true"
                                          requiredMessage="Nom de la produit obligatoire"
                                          style="width: 98%;"
-                                         value=""/>
+                                         value="#{MBArticle.modifArticle.nomproduit}"/>
                         </p:column>
                     </p:row>
                     <p:row>                            
@@ -30,7 +31,7 @@
                         <p:column colspan="3">                                
                             <p:inputText id="resModif" label="Prix" 
                                          style="width: 98%;"
-                                         value=""/>
+                                         value="#{MBArticle.modifArticle.prix}"/>
                         </p:column>
                     </p:row>                    
                     <p:row>                            
@@ -38,9 +39,9 @@
                             <p:outputLabel for="categorieModif" value="Catégorie"/>
                         </p:column>
                         <p:column colspan="3">                                
-                            <p:selectOneMenu   id="categorieModif"  value=""  style="width:98%;">  
+                            <p:selectOneMenu   id="categorieModif"  value="#{MBArticle.recupIdCategorieModif}"  style="width:98%;">  
                                 <f:selectItem itemLabel="Choisir catégorie" itemValue="-1" />
-                                <f:selectItems value=""  /> 
+                                <f:selectItems value="#{MBCategorie.lstCategorie}" var="cat" itemLabel="#{cat.libelle}" itemValue="#{cat.idcategorie}"  /> 
                             </p:selectOneMenu>  
                         </p:column>
                     </p:row>
@@ -53,29 +54,19 @@
                         <p:column colspan="3">                                
                             <p:inputText id="marqueModif" label="Marque" 
                                          style="width: 98%;"
-                                         value=""/>
+                                         value="#{MBArticle.modifArticle.marque}"/>
                         </p:column>
                     </p:row>
 
-                    <p:row>                            
-                        <p:column>
-                            <p:outputLabel for="promotionModif" value="Promotion"/>
-                        </p:column>
-                        <p:column colspan="3">                                
-                            <p:selectOneMenu   id="promotionModif"  value=""  style="width:98%;">  
-                                <f:selectItem itemLabel="Choisir promotion" itemValue="-1" />
-                                <f:selectItems value=""  /> 
-                            </p:selectOneMenu>  
-                        </p:column>
-                    </p:row>
+            
                     <p:row>      
                         <p:column>
                             <p:outputLabel for="selectDisponibilite" value="Disponibilité"/>
                         </p:column>
                         <p:column colspan="3">                                
-                            <p:selectOneMenu   id="selectDisponibilite"  value=""  style="width:98%;">  
-                                <f:selectItem itemLabel="Choisir disponibilite" itemValue="-1" />
-                                <f:selectItems value=""  /> 
+                            <p:selectOneMenu   id="selectDisponibilite"  value="#{MBArticle.recupDispoModif}"  style="width:98%;">  
+                                <f:selectItem itemLabel="Choisir disponibilite" itemValue="Oui" />
+                                <f:selectItems value="#{MBArticle.lstDispo}"  /> 
                             </p:selectOneMenu>  
                         </p:column>
                     </p:row>
@@ -86,7 +77,7 @@
                         <p:column colspan="3">                                
                             <p:inputText id="resCodebarre" label="Code barre" 
                                          style="width: 98%;"
-                                         value=""/>
+                                         value="#{MBArticle.modifArticle.codeBarre}"/>
                         </p:column>
                     </p:row>
 
@@ -97,7 +88,7 @@
                         <p:column colspan="3">
                             <p:inputText id="nombreModif" label="Marque" 
                                          style="width: 98%;"
-                                         value=""/>
+                                         value="#{MBArticle.modifArticle.nombre}"/>
                         </p:column>
                     </p:row>
 
@@ -106,8 +97,8 @@
                     <div style="text-align: center;">
                         <p:commandButton value="Enregistrer" icon="ui-icon-disk"
                                          oncomplete="dlgModifProduits.hide();"
-
-                                         actionListener="#{MBClient.ajouterClient()}"
+                                         update=":client"
+                                         actionListener="#{MBArticle.modifierProduit()}"
                                          />
                         <p:commandButton value="Annuler" icon="ui-icon"
                                          onclick="dlgModifProduits.hide();"
@@ -115,6 +106,7 @@
                     </div>
                 </f:facet>
             </p:panelGrid>
+        </h:form>
         </p:dialog>
 
     </ui:composition>
