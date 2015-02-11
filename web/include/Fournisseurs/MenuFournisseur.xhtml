@@ -17,34 +17,40 @@
                 <p:tab title="Produits" id="idGestion">
                     <div class="sidebar">
 
-                        <div class="menusidebar"  id="clients" style="color: white;background-color: #CCCCCC;border-radius: 2px;" >
+                        <div class="menusidebar"  id="clients" >
                             <h:outputLink 
                                 value="produits.jsf" 
-                                        
-                                        >
+
+                                >
                                 <h:outputText   value="Produits" />
                             </h:outputLink>
                         </div>
                         <div class="menusidebar" id="tarification" >
                             <h:outputLink value="achats.jsf"
-                                        
-                                        >
+
+                                          >
                                 <h:outputText value="Achats" />
                             </h:outputLink>
                         </div>
 
                         <div class="menusidebar" id="unite">
                             <h:outputLink value="categorie.jsf"
-                                        
-                                        >
+
+                                          >
                                 <h:outputText value="Categorie" />
+                            </h:outputLink>
+                        </div>
+                        <div class="menusidebar" id="fournisseur">
+                            <h:outputLink value="fournisseur.jsf"
+                                          >
+                                <h:outputText value="Fournisseurs" />
                             </h:outputLink>
                         </div>
 
                         <div class="menusidebar" id="histoConnexion">
-                            <h:outputLink value="#"
-                                        
-                                        >
+                            <h:outputLink value="historiqueDeConnexion.jsf"
+
+                                          >
                                 <h:outputText value="Historique connexion" />
                             </h:outputLink>
                         </div>
@@ -54,15 +60,14 @@
 
                 <div class="separation"></div>
                 <p:tab title="Utilisateur" id="idStock">
-                    <div class="sidebar">
+                    <div class="sidebar" style="color: white;background-color: #CCCCCC;border-radius: 2px;">
                         <div class="menusidebar">
                             <h:outputLink value="utilisateur.jsf">
                                 <h:outputText value="Gestion des utilisateurs"/>
                             </h:outputLink>
                         </div>
                     </div> 
-
-                </p:tab>
+                </p:tab>            
             </p:accordionPanel>
         </h:form>  
 

@@ -10,7 +10,7 @@
 
         <ui:composition template="../template/commonLayout.xhtml">
 
-            <ui:define name="title"> logistique</ui:define>
+            <ui:define name="title"> Gestion de caisse administration.</ui:define>
 
             <ui:define name="identity"> </ui:define>
 
@@ -22,87 +22,53 @@
 
                         <p:ajax event="tabChange" listener="#{MBGestionTabMenu.onTabChange}"/>  
 
-                        <p:tab title="Produits" id="idGestion">
+                        <p:tab title="Gestion" id="idGestion">
 
                             <div class="sidebar">
 
                                 <div class="menusidebar"  id="clients">
                                     <h:outputLink 
                                         value="produits.jsf"
-                                        
+
                                         >
                                         <h:outputText   value="Produits" />
                                     </h:outputLink>
                                 </div>
                                 <div class="menusidebar" id="tarification">
                                     <h:outputLink value="achats.jsf"
-                                        
-                                        >
+
+                                                  >
                                         <h:outputText value="Achats" />
                                     </h:outputLink>
                                 </div>
 
                                 <div class="menusidebar" id="unite">
                                     <h:outputLink value="categorie.jsf"
-                                        
-                                        >
+
+                                                  >
                                         <h:outputText value="Categorie" />
                                     </h:outputLink>
                                 </div>
 
-                                <div class="menusidebar" id="serviceClient">
-                                    <h:outputLink value="#"
-                                        
-                                        >
-                                        <h:outputText value="Services client" />
+                                <div class="menusidebar" id="fournisseur">
+                                    <h:outputLink value="fournisseur.jsf"
+
+                                                  >
+                                        <h:outputText value="Fournisseurs" />
                                     </h:outputLink>
                                 </div>
 
-                                <div class="menusidebar" id="services">
-                                    <h:outputLink value="services.jsf"
-                                        
-                                        >
-                                        <h:outputText value="Prestations" />
+                                <div class="menusidebar" id="commande">
+                                    <h:outputLink value="commande.jsf"
+
+                                                  >
+                                        <h:outputText value="Commande" />
                                     </h:outputLink>
                                 </div>
 
-                                <div class="menusidebar" id="tva">
-                                    <h:outputLink value="tva.jsf"
-                                        
-                                        >
-                                        <h:outputText value="TVA" />
-                                    </h:outputLink>
-                                </div>
-                                <div class="menusidebar" id="Etiquettes">
-                                    <h:outputLink value="etiquette.jsf">
-                                        <h:outputText value="Etiquettes" />
-                                    </h:outputLink>
-                                </div>
-                                <div class="menusidebar" id="reglements">
-                                    <h:outputLink value="reglements.jsf"
-                                        
-                                        >
-                                        <h:outputText value="Règlements" />
-                                    </h:outputLink>
-                                </div>
-                                <div class="menusidebar" id="periodeDeFacturation">
-                                    <h:outputLink value="periodeDeFacturation.jsf"
-                                        
-                                        >
-                                        <h:outputText value="Période de la facturation" />
-                                    </h:outputLink>
-                                </div>
-                                <div class="menusidebar" id="utilisateurs">
-                                    <h:outputLink value="admin.jsf"
-                                        
-                                        >
-                                        <h:outputText value="Utilisateurs internes" />
-                                    </h:outputLink>
-                                </div>
                                 <div class="menusidebar" id="histoConnexion">
-                                    <h:outputLink value="historiqueDeConnexion.jsf"
-                                        
-                                        >
+                                    <h:outputLink value="#"                                        
+                                                  >
                                         <h:outputText value="Historique connexion" />
                                     </h:outputLink>
                                 </div>
@@ -119,24 +85,6 @@
                                         <h:outputText value="Gestion des utilisateurs"/>
                                     </h:outputLink>
                                 </div>
-                            </div> 
-
-                            <div class="menusidebar">
-                                <h:outputLink value="historiqueDePalette.jsf">
-                                    <h:outputText value="Historique du palette" />
-                                </h:outputLink>
-                            </div>
-                    
-                            <div class="menusidebar">
-                                <h:outputLink value="integration.jsf">
-                                    <h:outputText value="Intégration Palette"/>
-                                </h:outputLink>
-                            </div>
-
-                            <div class="menusidebar">
-                                <h:outputLink value="integrationColis.jsf">
-                                    <h:outputText value="Intégration Colis"/>
-                                </h:outputLink>
                             </div> 
                         </p:tab>
 

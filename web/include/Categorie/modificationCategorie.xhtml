@@ -20,16 +20,43 @@
                                          required="true"
                                          requiredMessage="Nom de la catégorie obligatoire"
                                          style="width: 98%;"
-                                         value=""/>
+                                         value="#{MBCategorie.modifCategorie.libelle}"/>
                         </p:column>
                     </p:row>
+                    <p:row>                            
+                        <p:column>
+                            <p:outputLabel for="codeCatModif" value="Code catégorie."/>
+                        </p:column>
+                        <p:column colspan="3">                                
+                            <p:inputText id="codeCatModif" label="Code Catégorie"
+                                         required="true"
+                                         requiredMessage="Code de la catégorie obligatoire"
+                                         style="width: 98%;"
+                                         value="#{MBCategorie.modifCategorie.codecategorie}"/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>                            
+                        <p:column>
+                            <p:outputLabel for="descriptionModif" value="Description"/>
+                        </p:column>
+                        <p:column colspan="3">                                
+                            <p:inputText id="descriptionModif" label="Nom de la description"
+                                         
+                                         requiredMessage="Nom de la description obligatoire."
+                                         style="width: 98%;"
+                                         value="#{MBCategorie.modifCategorie.description}"/>
+                        </p:column>
+                    </p:row>
+
+
                 </p:panelGrid>
                 <f:facet name="footer" >
                     <div style="text-align: center;">
                         <p:commandButton value="Enregistrer" icon="ui-icon-disk"
                                          oncomplete="dlgModifCategorie.hide();"
-
-                                         actionListener="#{MBClient.ajouterClient()}"
+                                         update=":client"
+                                         actionListener="#{MBCategorie.modifierCategorie()}"
                                          />
                         <p:commandButton value="Annuler" icon="ui-icon"
                                          onclick="dlgModifCategorie.hide();"

@@ -45,6 +45,18 @@
                         </p:column>
                     </p:row>
 
+                    <p:row>                            
+                        <p:column>
+                            <p:outputLabel for="fournisseurAjout" value="Fournisseurs"/>
+                        </p:column>
+                        <p:column colspan="3">                                
+                            <p:selectOneMenu   id="fournisseurAjout"  value="#{MBArticle.recupIdFournisseur}"  style="width:98%;">  
+                                <f:selectItem itemLabel="Choisir catégorie" itemValue="-1" />
+                                <f:selectItems value="#{MBArticle.lstFournisseur}" var="fournisseur" itemLabel="#{fournisseur.nomfornisseur}"  itemValue="#{fournisseur.idfornisseur}" /> 
+                            </p:selectOneMenu>  
+                        </p:column>
+                    </p:row>
+
 
                     <p:row>                            
                         <p:column>
@@ -57,7 +69,7 @@
                         </p:column>
                     </p:row>
 
-             
+
                     <p:row>      
                         <p:column>
                             <p:outputLabel for="selectDisponibilite" value="Disponibilité"/>
@@ -96,7 +108,7 @@
                     <div style="text-align: center;">
                         <p:commandButton value="Enregistrer" icon="ui-icon-disk"
                                          oncomplete="dlgAjoutProduits.hide();"
-                                         update=":client"
+                                         update=":client, :messageClient"
                                          actionListener="#{MBArticle.ajouterProduit()}"
                                          />
                         <p:commandButton value="Annuler" icon="ui-icon"

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <ui:composition>
+       
+
+        <p:dialog id="dialogajout" header="Ajout Fournisseur" widgetVar="dlgajout" modal="true">
+            <h:form id="formAjoutFournisseurs">
+                <h:panelGrid columns="2" cellpadding="5" id="panelAjoutFournisseur">
+                    <p:outputLabel for="nomFournisseur">Nom</p:outputLabel>
+                    <p:inputText value="#{MBFournisseur.ajoutFournisseur.nomfornisseur}" id="nomFournisseur" required="true" requiredMessage="Vous devez saisir un nom d'Fournisseur" />
+
+                    <p:outputLabel for="prenomFournisseur">E-mail</p:outputLabel>
+                    <p:inputText value="#{MBFournisseur.ajoutFournisseur.emailfournisseur}" id="prenomFournisseur" required="true" requiredMessage="Vous devez saisir le prénom de l'Fournisseur" />
+
+                    <p:outputLabel for="login">Tél</p:outputLabel>
+                    <p:inputText value="#{MBFournisseur.ajoutFournisseur.telfournisseur}" id="login" required="true" requiredMessage="Vous devez saisir le login de l'Fournisseur" />
+
+
+                    <p:outputLabel for="motdepasse">Adresse</p:outputLabel>
+                    <p:inputText value="#{MBFournisseur.ajoutFournisseur.adressefournisseur}" id="motdepasse" required="true"  requiredMessage="Vous devez saisir un mot de passe"/>
+
+
+                    <f:facet name="footer">
+                      
+                        <p:commandButton icon="ui-icon-disk"
+                                         update=":client, :messageClient"
+                                         actionListener="#{MBFournisseur.ajouterFournisseur()}"
+                                         style="margin-right: 10px;"
+                                         oncomplete="dlgajout.hide();"
+                                         id="ajoutBouton" value="Ajouter" 
+                                          />
+                        <p:commandButton value="Fermer" immediate="true" onclick="dlgajout.hide();" />
+                    </f:facet>
+
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -21,8 +21,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -78,6 +80,9 @@ public class MBUtilisateur implements Serializable {
 //       
         String ret = envoyerEtRecevoirMessage(url, "POST");
         if (ret.equals("succes")) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Modification avec succès !", "");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+
             recupererListeUtilisateur();
         }
     }
@@ -88,6 +93,9 @@ public class MBUtilisateur implements Serializable {
 
             if (!ret.isEmpty()) {
                 recupererListeUtilisateur();
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Ajout avec succès !", "");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+
             }
 
         } catch (IOException ex) {
@@ -95,17 +103,21 @@ public class MBUtilisateur implements Serializable {
         }
     }
 
-    public void supprimerUtilisateur(){
+    public void supprimerUtilisateur() {
         try {
-           String ret = envoyerEtRecevoirMessage("http://localhost:8080/CaisseApplication-war/webresources/listeUtilisateur/supprimerUtilisateur/"+supprUtilisateur.getLogin()+"-"+supprUtilisateur.getMotdepasse(), "POST");
-           if(ret.equals("succes")){
+            String ret = envoyerEtRecevoirMessage("http://localhost:8080/CaisseApplication-war/webresources/listeUtilisateur/supprimerUtilisateur/" + supprUtilisateur.getLogin() + "-" + supprUtilisateur.getMotdepasse(), "POST");
+            if (ret.equals("succes")) {
                 recupererListeUtilisateur();
-           }
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Suppression avec succès !", "");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+
+            }
         } catch (IOException ex) {
             Logger.getLogger(MBUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
+
     public void obtenirListeUtilisateurs() throws ParserConfigurationException, SAXException, TransformerException {
         try {
             String ret = envoyerEtRecevoirMessage("http://localhost:8080/CaisseApplication-war/webresources/listeUtilisateur", "GET");
@@ -241,5 +253,4 @@ public class MBUtilisateur implements Serializable {
         this.supprUtilisateur = supprUtilisateur;
     }
 
-  
 }

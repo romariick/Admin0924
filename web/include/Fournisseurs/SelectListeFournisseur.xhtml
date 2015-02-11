@@ -13,31 +13,21 @@
             <p:panel style="width: 100%; margin-top: 5px;" styleClass="tableNoBorder" >
                 <h:form id="frmListeRechClient">
                     <p:panelGrid columns="2" id="panelListeClient" style="margin: 0 auto;text-align: left;" styleClass="tableNoBorder" >
-
-
-                        <p:outputLabel styleClass="boldLabel" for="selectClient" value="Recherche par catégorie : "/>
-
-                        <p:selectOneMenu   id="selectClient"  value="#{MBArticle.idcategorie}"  style="width:135px">  
-                            <f:selectItem itemLabel="Choisir client" itemValue="-1" />
-                            <f:selectItems value="#{MBCategorie.lstCategorie}" var="categorie" itemValue="#{categorie.idcategorie}" itemLabel="#{categorie.libelle}" />                    
-                            <p:ajax  event="change" update=":client"   listener="#{MBArticle.obtenireParCategorie()}"    />
-                        </p:selectOneMenu>  
-
                     </p:panelGrid>
                 </h:form>
-                <ui:include src="/include/Categorie/ListeCategorie.xhtml"/>                 
+                <ui:include src="/include/Fournisseurs/ListeFournisseur.xhtml"/>                 
 
                 <h:form style="text-align: left">
                     <p:commandButton icon="ui-icon-plus"   
-                                     oncomplete="dlgajoutCat.show()"
-                                     value="Ajouter categorie" 
+                                     oncomplete="dlgajout.show()"
+                                     value="Ajouter" 
                                      id="ajoutLink" 
-                                     title="Ajouter catégorie." 
+                                     title="Acheter" 
                                      style="margin-top: 10px;margin-bottom: 10px;"
                                      >
                     </p:commandButton>
                     
-                     <ui:include src="/include/Categorie/ajoutCategorie.xhtml"/>
+                    <ui:include src="/include/Fournisseurs/ajoutFournisseur.xhtml"/>
                 </h:form>
 
             </p:panel>           

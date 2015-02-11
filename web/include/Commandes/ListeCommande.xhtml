@@ -10,29 +10,43 @@
         <p:growl id="messageSupprClient" showDetail="true" />
         <h:form id="client">
             <p:dataTable id="tableClient"
-                         value="#{MBCategorie.lstCategorie}"                         
+                         value="#{MBCommande.lstLigneDeCommmande}"                         
                          style="margin-top: 10px;"
-                         var="categorie"
+                         var="cmd"
                          paginator="true" rows="10" 
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                          rowsPerPageTemplate="5,10,15" resizableColumns="true">
 
                 <f:facet name="header">  
-                    Liste des Categorie
+                    Liste des Commandes
                 </f:facet>  
                 <p:column  style="width:20%" filterBy="">
                     <f:facet name="header">  
-                        <h:outputText value="Nom catégorie" />  
+                        <h:outputText value="Nom" />  
                     </f:facet>  
-                    <h:outputText value="#{categorie.libelle}" /> 
+                    <h:outputText value="#{cmd.nomfournisseur}" /> 
                 </p:column>  
 
                 <p:column  style="width:20%" filterBy="">
                     <f:facet name="header">  
-                        <h:outputText value="Code" />  
+                        <h:outputText value="Nom" />  
                     </f:facet>  
-                    <h:outputText value="#{categorie.codecategorie}" /> 
+                    <h:outputText value="#{cmd.designationcommande}" /> 
+                </p:column>  
+
+                <p:column  style="width:20%" filterBy="">
+                    <f:facet name="header">  
+                        <h:outputText value="Prénom" />  
+                    </f:facet>  
+                    <h:outputText value="#{cmd.nomfournisseur}" /> 
                 </p:column>   
+                <p:column  style="width:20%" filterBy="">
+                    <f:facet name="header">  
+                        <h:outputText value="Login" />  
+                    </f:facet>  
+                    <h:outputText value="#{cmd.prixunitaire}" /> 
+                </p:column> 
+
 
                 <p:column  styleClass="alignCenter" style="width:10%">
                     <f:facet name="header">  
@@ -40,11 +54,10 @@
                     </f:facet>                     
                     <p:commandButton 
                         icon="ui-icon-pencil"
-                        update=":frmModifCategorie"
-                        oncomplete="dlgModifCategorie.show()"
-
+                        oncomplete="dlgmodif.show()"
+                        update=":formModifCommandes"
                         >
-                        <f:setPropertyActionListener value="#{categorie}" target="#{MBCategorie.modifCategorie}" /> 
+                        <f:setPropertyActionListener value="#{cmd}" target="#{MBCommande.modifLigneCommande}" /> 
                     </p:commandButton>  
                 </p:column> 
 
@@ -54,23 +67,21 @@
                     </f:facet>                
                     <p:commandButton 
                         icon="ui-icon-trash"
-                        oncomplete="dlgSupprCategorie.show()"
+                        oncomplete="dlgsupprCommandes.show()"
 
                         >
-                        <f:setPropertyActionListener value="#{categorie}" target="#{MBCategorie.supprCategorie}" /> 
+
+                        <f:setPropertyActionListener value="#{cmd}" target="#{MBCommande.supprLigneCommande}" /> 
                     </p:commandButton>  
                 </p:column> 
 
             </p:dataTable>
 
 
-
+            <ui:include src="/include/Commandes/SupprCommande.xhtml"/>
 
         </h:form>
-        <ui:include src="/include/Categorie/supprCategorie.xhtml"/>
-        <h:form id="frmModifCategorie">
-            <ui:include src="/include/Categorie/modificationCategorie.xhtml"/>
-        </h:form>
+        <ui:include src="/include/Commandes/ModifCommande.xhtml"/>
     </ui:composition>
 </html>
 

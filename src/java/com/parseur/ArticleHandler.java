@@ -91,7 +91,7 @@ public class ArticleHandler extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 
         if (qName.equals("articles")) {
-            System.out.println("Debut article");
+           
             ajoutArticle = new Article();
 
         } else if (qName.equals("nomproduit")) {
@@ -103,6 +103,9 @@ public class ArticleHandler extends DefaultHandler {
         } else if (qName.equals("codebarre")) {
             buffer = new StringBuffer();
         } else if (qName.equals("nombre")) {
+            buffer = new StringBuffer();
+
+        } else if (qName.equals("idfornisseur")) {
             buffer = new StringBuffer();
 
         } else {
@@ -139,6 +142,10 @@ public class ArticleHandler extends DefaultHandler {
             buffer = null;
 
         } else if (qName.equals("nombre")) {
+            ajoutArticle.setNombre(buffer.toString());
+            buffer = null;
+
+        } else if (qName.equals("idfornisseur")) {
             ajoutArticle.setNombre(buffer.toString());
             buffer = null;
 

@@ -6,40 +6,37 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
 
+
     <ui:composition>
+       
 
-        <p:dialog id="dlgAjoutCategorie" header="Ajout d'un nouveau categorie" widgetVar="dlgAjoutCategorie" modal="true" >
-            <p:panelGrid columns="1" id="panelAjoutClient" style=" width: 100%;">
-                <p:panelGrid styleClass="tableNoBorder" >
-                    <p:row>                            
-                        <p:column>
-                            <p:outputLabel for="nomAjout" value="Nom"/>
-                        </p:column>
-                        <p:column colspan="3">                                
-                            <p:inputText id="nomAjout" label="Nom Catégorie"
-                                         required="true"
-                                         requiredMessage="Nom de la catégorie obligatoire"
-                                         style="width: 98%;"
-                                         value=""/>
-                        </p:column>
-                    </p:row>
+        <p:dialog id="dialogajoutCategorie" header="Ajout categorie" widgetVar="dlgajoutCat" modal="true">
+            <h:form id="formAjoutCategorie">
+                <h:panelGrid columns="2" cellpadding="5" id="panelAjoutCategorie">
+                    <p:outputLabel for="nomCategorie">Nom</p:outputLabel>
+                    <p:inputText value="#{MBCategorie.ajoutCategorie.libelle}" id="nomCategorie" required="true" requiredMessage="Vous devez saisir un nom de catégorie." />
 
-                </p:panelGrid>
-                <f:facet name="footer" >
-                    <div style="text-align: center;">
-                        <p:commandButton value="Enregistrer" icon="ui-icon-disk"
-                                         oncomplete="dlgAjoutCategorie.hide();"
+                    <p:outputLabel for="codeCategorie">Code</p:outputLabel>
+                    <p:inputText value="#{MBCategorie.ajoutCategorie.codecategorie}" id="codeCategorie" required="true" requiredMessage="Vous devez saisir le code catégorie." />
 
-                                         actionListener="#{MBClient.ajouterClient()}"
-                                         />
-                        <p:commandButton value="Annuler" icon="ui-icon"
-                                         onclick="dlgAjoutCategorie.hide();"
-                                         />
-                    </div>
-                </f:facet>
-            </p:panelGrid>
+                    <p:outputLabel for="descriptionCategorie">Description</p:outputLabel>
+                    <p:inputText value="#{MBCategorie.ajoutCategorie.description}" id="descriptionCategorie" required="true" requiredMessage="Vous devez saisir le description du catégorie." />
+
+                    <f:facet name="footer">
+                      
+                        <p:commandButton icon="ui-icon-disk"
+                                         update=":client, :messageClient"
+                                         actionListener="#{MBCategorie.ajouterCategorie()}"
+                                         style="margin-right: 10px;"
+                                         oncomplete="dlgajoutCat.hide();"
+                                         id="ajoutBouton" value="Ajouter" 
+                                          />
+                        <p:commandButton value="Fermer" immediate="true" onclick="dlgajout.hide();" />
+                    </f:facet>
+
+                </h:panelGrid>
+            </h:form>
         </p:dialog>
 
     </ui:composition>
 </html>
-

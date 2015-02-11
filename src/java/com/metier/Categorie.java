@@ -14,6 +14,7 @@ public class Categorie {
     private Integer idcategorie;
     private String libelle;
     private String description;
+    private String codecategorie;
 
     /**
      * @return the idcategorie
@@ -55,6 +56,20 @@ public class Categorie {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * @return the codecategorie
+     */
+    public String getCodecategorie() {
+        return codecategorie;
+    }
+
+    /**
+     * @param codecategorie the codecategorie to set
+     */
+    public void setCodecategorie(String codecategorie) {
+        this.codecategorie = codecategorie;
     }
 
 }

@@ -6,7 +6,9 @@
 package com.controller;
 
 import com.metier.Article;
+import com.metier.Fournisseur;
 import com.parseur.ArticleHandler;
+import com.parseur.FournisseurHandler;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +24,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -79,6 +82,9 @@ public class MBArticle implements Serializable {
     private Integer idcategorie;
     private boolean recupSelectionner;
     private List<String> lstDispo = new ArrayList<String>();
+    private List<Fournisseur> lstFournisseur = new ArrayList<Fournisseur>();
+    private Integer recupIdFournisseur;
+    private List<Article> tempAchatarticle = new ArrayList<Article>();
 
     @PostConstruct
     public void init() {
@@ -88,6 +94,7 @@ public class MBArticle implements Serializable {
             lstDispo.add("Non");
 
             initialiserListeProduit();
+            recupererListeFournisseur();
             //lstArticle.clear();
 
             if (!sauvegardeAchatNonPayez.isEmpty()) {
@@ -172,6 +179,7 @@ public class MBArticle implements Serializable {
             File fichier = new File(nomFichier);
             DefaultHandler gestionnaire = new ArticleHandler();
             parseur.parse(fichier, gestionnaire);
+          
         } catch (ParserConfigurationException e) {
             System.err.println("Probleme lors de la creation du parser : " + e);
         } catch (SAXException e) {
@@ -222,22 +230,36 @@ public class MBArticle implements Serializable {
         }
     }
 
+    public void obtenirListeFournisseur() {
+
+    }
+
     public void ajouterProduit() {
         try {
             ajoutArticle.setEtat("Etat");
+            ajoutArticle.setIdfornisseur(recupIdFournisseur);
+            ajoutArticle.setPromotion(recupDisponibilite);
+             ajoutArticle.setReduction(recupDisponibilite);
+             ajoutArticle.setEtat(recupDisponibilite);
+            
 
+            
             String ret = envoyerEtRecevoirMessage("http://localhost:8080/CaisseApplication-war/webresources/listearticle/ajouterArticle/" + ajoutArticle.getNomproduit()
-                    + "-" + ajoutArticle.getPrix()
+                    +"-"  +ajoutArticle.getIdfornisseur()
+                    + "-" + Long.parseLong(ajoutArticle.getPrix())
                     + "-" + ajoutArticle.getMarque()
                     + "-" + ajoutArticle.getPromotion()
                     + "-" + ajoutArticle.getReduction()
                     + "-" + recupDisponibilite
                     + "-" + ajoutArticle.getCodeBarre()
                     + "-" + ajoutArticle.getEtat()
-                    + "-" + ajoutArticle.getNombre()+ "-" + recupIdCategorie.toString(), "POST");
+                    + "-" + ajoutArticle.getNombre() + "-" + recupIdCategorie.toString(), "POST");
 
             if (ret.equals("succes")) {
                 initialiserListeProduit();
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Ajout avec succès !", "");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+
             }
         } catch (IOException ex) {
             Logger.getLogger(MBArticle.class.getName()).log(Level.SEVERE, null, ex);
@@ -248,15 +270,23 @@ public class MBArticle implements Serializable {
         try {
             modifArticle.setPromotion("Oui");
             modifArticle.setReduction("Oui");
-            String ret = envoyerEtRecevoirMessage("http://localhost:8080/CaisseApplication-war/webresources/listearticle/modifierArticleByCodeBarre/" + modifArticle.getCodeBarre() + "-" + modifArticle.getMarque() + "-" + modifArticle.getNomproduit()
+            
+            
+            
+            
+            String ret = envoyerEtRecevoirMessage("http://localhost:8080/CaisseApplication-war/webresources/listearticle/modifierArticleByCodeBarre/" + modifArticle.getCodeBarre()+ "-"+ modifArticle.getIdfornisseur() + "-" + modifArticle.getMarque() + "-" + modifArticle.getNomproduit()
                     + "-" + modifArticle.getPrix()
                     + "-" + modifArticle.getPromotion()
                     + "-" + modifArticle.getReduction()
                     + "-" + recupDispoModif
-                    + "-" + modifArticle.getPrix(), "POST");
+                    + "-" + modifArticle.getNombre(), "POST");
 
             if (ret.equals("succes")) {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Modification avec succès !", "");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+
                 initialiserListeProduit();
+
             }
         } catch (IOException ex) {
             Logger.getLogger(MBArticle.class.getName()).log(Level.SEVERE, null, ex);
@@ -267,6 +297,9 @@ public class MBArticle implements Serializable {
         try {
             String ret = envoyerEtRecevoirMessage("http://localhost:8080/CaisseApplication-war/webresources/listearticle/supprimerArticle/" + supprArticle.getCodeBarre(), "POST");
             if (ret.equals("succes")) {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Suppression avec succès !", "");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+
                 initialiserListeProduit();
             }
         } catch (IOException ex) {
@@ -308,6 +341,106 @@ public class MBArticle implements Serializable {
         sauvegardeAchatNonPayez.clear();
         sauvegardeNonPayez = 0.0;
         netApayez = 0.0;
+    }
+
+    public void acheterProduit() throws IOException, ParserConfigurationException, SAXException, TransformerException {
+
+        String str = listerArticle("http://localhost:8080/CaisseApplication-war/webresources/listearticle/obtenirArticleByCodeBarre/" + codebarre, "POST");
+
+        if (!str.isEmpty()) {
+            stringToDom(str);
+            if (!codebarre.isEmpty()) {
+                
+                String acheter = listerArticle("http://localhost:8080/CaisseApplication-war/webresources/listearticle/acheterArticleByCodeBarre/" + codebarre, "POST");
+                if (acheter.equals("achatok")) {
+                   
+                     lstAchat = ArticleHandler.getListArctile();
+
+                    Article sauvarticle = new Article();
+
+                    sauvarticle.setCodeBarre(lstAchat.get(0).getCodeBarre());
+                    sauvarticle.setPrix(lstAchat.get(0).getPrix());
+                    sauvarticle.setNomproduit(lstAchat.get(0).getNomproduit());
+                    sauvarticle.setDisponibilite(lstAchat.get(0).getDisponibilite());
+                    sauvarticle.setReduction(lstAchat.get(0).getReduction());
+
+                    netApayez += Double.parseDouble(lstAchat.get(0).getPrix());
+                    tempAchat.add(sauvarticle);
+
+                    sauvegardeAchatNonPayez = tempAchat;
+                    sauvegardeNonPayez = netApayez;
+
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Achat avec succès !", "");
+                    FacesContext.getCurrentInstance().addMessage(null, message);
+
+                }
+            }
+        }
+
+    }
+
+    /*Récuperer liste fournisseur*/
+    public void recupererListeFournisseur() {
+        try {
+            obtenirListeFournisseurs();
+            //lstUtilisateur.clear();
+            lstFournisseur = FournisseurHandler.getListFournisseur();
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(MBUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
+            Logger.getLogger(MBUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (TransformerException ex) {
+            Logger.getLogger(MBUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void obtenirListeFournisseurs() throws ParserConfigurationException, SAXException, TransformerException {
+        try {
+            String ret = envoyerEtRecevoirMessage("http://localhost:8080/CaisseApplication-war/webresources/listeFournisseur", "GET");
+            stringToDomFournisseur(ret);
+        } catch (IOException ex) {
+            Logger.getLogger(MBUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    void stringToDomFournisseur(String xmlSource) throws ParserConfigurationException, SAXException, IOException, TransformerConfigurationException, TransformerException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+
+        org.w3c.dom.Document doc = builder.parse(new InputSource(new StringReader(xmlSource)));
+        // Use a Transformer for output
+        TransformerFactory tFactory = TransformerFactory.newInstance();
+        javax.xml.transform.Transformer transformer = tFactory.newTransformer();
+
+        DOMSource source = new DOMSource(doc);
+
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        StreamResult result = new StreamResult(new File("G:\\FournisseurTempAdmin.xml"));
+        transformer.transform(source, result);
+
+        parserXMLFichierFournisseur("G:\\FournisseurTempAdmin.xml");
+    }
+
+    public void parserXMLFichierFournisseur(String nomFichier) {
+        try {
+            // création d'une fabrique de parseurs SAX
+            SAXParserFactory fabrique = SAXParserFactory.newInstance();
+
+            // création d'un parseur SAX
+            SAXParser parseur = fabrique.newSAXParser();
+
+            // lecture d'un fichier XML avec un DefaultHandler
+            File fichier = new File(nomFichier);
+            DefaultHandler gestionnaire = new FournisseurHandler();
+            parseur.parse(fichier, gestionnaire);
+        } catch (ParserConfigurationException e) {
+            System.err.println("Probleme lors de la creation du parser : " + e);
+        } catch (SAXException e) {
+            System.err.println("Probleme de parsing : " + e);
+        } catch (IOException e) {
+            System.err.println("Probleme d'entrée/sortie : " + e);
+        }
+
     }
 
     /**
@@ -532,6 +665,48 @@ public class MBArticle implements Serializable {
      */
     public void setSupprArticle(Article supprArticle) {
         this.supprArticle = supprArticle;
+    }
+
+    /**
+     * @return the lstFournisseur
+     */
+    public List<Fournisseur> getLstFournisseur() {
+        return lstFournisseur;
+    }
+
+    /**
+     * @param lstFournisseur the lstFournisseur to set
+     */
+    public void setLstFournisseur(List<Fournisseur> lstFournisseur) {
+        this.lstFournisseur = lstFournisseur;
+    }
+
+    /**
+     * @return the recupIdFournisseur
+     */
+    public Integer getRecupIdFournisseur() {
+        return recupIdFournisseur;
+    }
+
+    /**
+     * @param recupIdFournisseur the recupIdFournisseur to set
+     */
+    public void setRecupIdFournisseur(Integer recupIdFournisseur) {
+        this.recupIdFournisseur = recupIdFournisseur;
+    }
+
+    /**
+     * @return the tempAchatarticle
+     */
+    public List<Article> getTempAchatarticle() {
+        return tempAchatarticle;
+    }
+
+    /**
+     * @param tempAchatarticle the tempAchatarticle to set
+     */
+    public void setTempAchatarticle(List<Article> tempAchatarticle) {
+        this.tempAchatarticle = tempAchatarticle;
     }
 
 }

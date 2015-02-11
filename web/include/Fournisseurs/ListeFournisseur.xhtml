@@ -10,41 +10,47 @@
         <p:growl id="messageSupprClient" showDetail="true" />
         <h:form id="client">
             <p:dataTable id="tableClient"
-                         value="#{MBCategorie.lstCategorie}"                         
+                         value="#{MBFournisseur.lstFournisseur}"                         
                          style="margin-top: 10px;"
-                         var="categorie"
+                         var="fournisseurs"
                          paginator="true" rows="10" 
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                          rowsPerPageTemplate="5,10,15" resizableColumns="true">
 
                 <f:facet name="header">  
-                    Liste des Categorie
+                    Liste des Fournisseurs
                 </f:facet>  
                 <p:column  style="width:20%" filterBy="">
                     <f:facet name="header">  
-                        <h:outputText value="Nom catégorie" />  
+                        <h:outputText value="Nom" />  
                     </f:facet>  
-                    <h:outputText value="#{categorie.libelle}" /> 
+                    <h:outputText value="#{fournisseurs.nomfornisseur}" /> 
                 </p:column>  
 
                 <p:column  style="width:20%" filterBy="">
                     <f:facet name="header">  
-                        <h:outputText value="Code" />  
+                        <h:outputText value="E-mail" />  
                     </f:facet>  
-                    <h:outputText value="#{categorie.codecategorie}" /> 
+                    <h:outputText value="#{fournisseurs.emailfournisseur}" /> 
                 </p:column>   
+                <p:column  style="width:20%" filterBy="">
+                    <f:facet name="header">  
+                        <h:outputText value="Adresse" />  
+                    </f:facet>  
+                    <h:outputText value="#{fournisseurs.adressefournisseur}" /> 
+                </p:column> 
+          
 
-                <p:column  styleClass="alignCenter" style="width:10%">
+            <p:column  styleClass="alignCenter" style="width:10%">
                     <f:facet name="header">  
                         <h:outputText value="Modifier" />  
                     </f:facet>                     
                     <p:commandButton 
                         icon="ui-icon-pencil"
-                        update=":frmModifCategorie"
-                        oncomplete="dlgModifCategorie.show()"
-
+                        oncomplete="dlgmodif.show()"
+                        update=":formModifFournisseurs"
                         >
-                        <f:setPropertyActionListener value="#{categorie}" target="#{MBCategorie.modifCategorie}" /> 
+                        <f:setPropertyActionListener value="#{fournisseurs}" target="#{MBFournisseur.modifFournisseur}" /> 
                     </p:commandButton>  
                 </p:column> 
 
@@ -54,23 +60,21 @@
                     </f:facet>                
                     <p:commandButton 
                         icon="ui-icon-trash"
-                        oncomplete="dlgSupprCategorie.show()"
-
+                        oncomplete="dlgsupprFournisseurs.show()"
+                                                            
                         >
-                        <f:setPropertyActionListener value="#{categorie}" target="#{MBCategorie.supprCategorie}" /> 
+                        
+                        <f:setPropertyActionListener value="#{fournisseurs}" target="#{MBFournisseur.supprFournisseur}" /> 
                     </p:commandButton>  
                 </p:column> 
-
+    
             </p:dataTable>
-
-
-
-
+            
+            
+            <ui:include src="/include/Fournisseurs/SupprFournisseur.xhtml"/>
+             
         </h:form>
-        <ui:include src="/include/Categorie/supprCategorie.xhtml"/>
-        <h:form id="frmModifCategorie">
-            <ui:include src="/include/Categorie/modificationCategorie.xhtml"/>
-        </h:form>
+        <ui:include src="/include/Fournisseurs/ModifFournisseur.xhtml"/>
     </ui:composition>
 </html>
 

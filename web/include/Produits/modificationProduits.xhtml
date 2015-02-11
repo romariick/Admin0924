@@ -97,7 +97,7 @@
                     <div style="text-align: center;">
                         <p:commandButton value="Enregistrer" icon="ui-icon-disk"
                                          oncomplete="dlgModifProduits.hide();"
-                                         update=":client"
+                                         update=":client, :messageClient"
                                          actionListener="#{MBArticle.modifierProduit()}"
                                          />
                         <p:commandButton value="Annuler" icon="ui-icon"

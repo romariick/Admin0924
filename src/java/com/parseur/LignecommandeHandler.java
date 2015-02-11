@@ -5,8 +5,7 @@
  */
 package com.parseur;
 
-import com.metier.Categorie;
-import com.metier.Utilisateur;
+import com.metier.Lignecommande;
 import java.util.ArrayList;
 import java.util.List;
 import org.xml.sax.Attributes;
@@ -17,44 +16,45 @@ import org.xml.sax.helpers.DefaultHandler;
  *
  * @author Romaric
  */
-public class CategorieHandler extends DefaultHandler {
+public class LignecommandeHandler extends DefaultHandler {
 
     /**
-     * @return the listCategorie
+     * @return the listLignecommande
      */
-    public static List<Categorie> getListCategorie() {
-        return listCategorie;
+    public static List<Lignecommande> getListLignecommande() {
+        return listLignecommande;
     }
 
     /**
-     * @param aListCategorie the listCategorie to set
+     * @param aListLignecommande the listLignecommande to set
      */
-    public static void setListCategorie(List<Categorie> aListCategorie) {
-        listCategorie = aListCategorie;
+    public static void setListLignecommande(List<Lignecommande> aListLignecommande) {
+        listLignecommande = aListLignecommande;
     }
 
     /**
-     * @return the ajoutCategorie
+     * @return the ajoutLignecommande
      */
-    public static Categorie getAjoutCategorie() {
-        return ajoutCategorie;
+    public static Lignecommande getAjoutLignecommande() {
+        return ajoutLignecommande;
     }
 
     /**
-     * @param aAjoutCategorie the ajoutCategorie to set
+     * @param aAjoutLignecommande the ajoutLignecommande to set
      */
-    public static void setAjoutCategorie(Categorie aAjoutCategorie) {
-        ajoutCategorie = aAjoutCategorie;
+    public static void setAjoutLignecommande(Lignecommande aAjoutLignecommande) {
+        ajoutLignecommande = aAjoutLignecommande;
     }
 
+   
     private StringBuffer buffer;
-    private static List<Categorie> listCategorie = new ArrayList<Categorie>();
-    private static Categorie ajoutCategorie = new Categorie();
+    private static List<Lignecommande> listLignecommande = new ArrayList<Lignecommande>();
+    private static Lignecommande ajoutLignecommande = new Lignecommande();
 
     /**
      * Constructeur par defaut. Initialise le buffer.
      */
-    public CategorieHandler() {
+    public LignecommandeHandler() {
         super();
         buffer = new StringBuffer();
     }
@@ -64,7 +64,7 @@ public class CategorieHandler extends DefaultHandler {
      */
     @Override
     public void startDocument() throws SAXException {
-        listCategorie.clear();
+        listLignecommande.clear();
         System.out.println("Debut de l'analyse" + System.getProperty("line.separator"));
     }
 
@@ -103,19 +103,25 @@ public class CategorieHandler extends DefaultHandler {
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 
-        if (qName.equals("categories")) {
-         
-            setAjoutCategorie(new Categorie());
+        
+        if(qName.equals("lignecommandes")) {
+          
+            ajoutLignecommande = new Lignecommande();
 
-        } else if (qName.equals("libellecategorie")) {
+        } else if (qName.equals("designationcommande")) {
             buffer = new StringBuffer();
-        } else if (qName.equals("descriptioncategorie")) {
+        } else if (qName.equals("idlignecommande")) {
             buffer = new StringBuffer();
-        } else if (qName.equals("idcategorie")) {
+        } 
+        else if (qName.equals("nomfournisseur")) {
             buffer = new StringBuffer();
-        } else if (qName.equals("codecategorie")) {
+        } else if (qName.equals("quantite")) {
             buffer = new StringBuffer();
-        } else {
+        } else if (qName.equals("idcommande")) {
+              buffer = new StringBuffer();
+        } else if (qName.equals("prixunitaire")) {
+             buffer = new StringBuffer();
+        }else {
             buffer = null;
         }
     }
@@ -130,27 +136,37 @@ public class CategorieHandler extends DefaultHandler {
      */
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        if (qName.equals("categories")) {
-            listCategorie.add(getAjoutCategorie());
+        if (qName.equals("lignecommandes")) {
+            listLignecommande.add(ajoutLignecommande);
             //ajoutArticle = new Article();
         }
-        if (qName.equals("libellecategorie")) {
-            getAjoutCategorie().setLibelle(buffer.toString());
+        if(qName.equals("idlignecommande")) {
+            ajoutLignecommande.setIdlignedecommande(buffer.toString());
             buffer = null;
-        } else if (qName.equals("descriptioncategorie")) {
-            getAjoutCategorie().setDescription(buffer.toString());
+        } else if (qName.equals("idcommande")) {
+            ajoutLignecommande.setIdcommande(buffer.toString());
             buffer = null;
-        } else if (qName.equals("idcategorie")) {
-            String temp = buffer.toString();
-            ajoutCategorie.setIdcategorie(Integer.parseInt(temp));
+        } else if (qName.equals("designationcommande")) {
+            ajoutLignecommande.setDesignationcommande(buffer.toString());
+            buffer = null;
+        } else if (qName.equals("nomfournisseur")) {
+            ajoutLignecommande.setNomfournisseur(buffer.toString());
             buffer = null;
 
-        } else if (qName.equals("codecategorie")) {
-            ajoutCategorie.setCodecategorie(buffer.toString());
+        }else if(qName.equals("quantite")){
+            ajoutLignecommande.setQuantite(buffer.toString());
             buffer = null;
+            
+        
+        }else if(qName.equals("prixunitaire")){
+            ajoutLignecommande.setPrixunitaire(buffer.toString());
+            buffer = null;
+            
         }
+
 
         //ajoutArticle.setListeArticle(getListArctile());
     }
+
 
 }

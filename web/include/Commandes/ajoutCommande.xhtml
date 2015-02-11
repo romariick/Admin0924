@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <ui:composition>
+       
+
+        <p:dialog id="dialogajout" header="Ajout Commande" widgetVar="dlgajout" modal="true">
+            <h:form id="formAjoutCommandes">
+                <h:panelGrid columns="2" cellpadding="5" id="panelAjoutCommande">
+                    <p:outputLabel for="nomCommande">Designation</p:outputLabel>
+                    <p:inputText value="#{MBCommande.ajoutLingeCommande.designationcommande}" id="nomCommande" required="true" requiredMessage="Vous devez saisir un nom d'Commande" />
+
+                    <p:outputLabel for="prenomCommande">Nom fournisseur</p:outputLabel>
+                    <p:inputText value="#{MBCommande.ajoutLingeCommande.nomfournisseur}" id="prenomCommande" required="true" requiredMessage="Vous devez saisir le prénom de l'Commande" />
+
+                    <p:outputLabel for="login">Quantité</p:outputLabel>
+                    <p:inputText value="#{MBCommande.ajoutLingeCommande.quantite}" id="login" required="true" requiredMessage="Vous devez saisir le login de l'Commande" />
+
+
+                    <p:outputLabel for="motdepasse">Prix unitaire</p:outputLabel>
+                    <p:inputText value="#{MBCommande.ajoutLingeCommande.prixunitaire}" id="motdepasse" required="true"  requiredMessage="Vous devez saisir un mot de passe"/>
+
+
+
+
+                    <f:facet name="footer">
+                      
+                        <p:commandButton icon="ui-icon-disk"
+                                         update=":client, :messageClient"
+                                         actionListener="#{MBCommande.ajouterCommande()}"
+                                         style="margin-right: 10px;"
+                                         oncomplete="dlgajout.hide();"
+                                         id="ajoutBouton" value="Ajouter" 
+                                          />
+                        <p:commandButton value="Fermer" immediate="true" onclick="dlgajout.hide();" />
+                    </f:facet>
+
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

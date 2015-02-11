@@ -47,17 +47,24 @@ import org.xml.sax.helpers.DefaultHandler;
 public class MBCategorie implements Serializable {
 
     private List<Categorie> lstCategorie = new ArrayList<Categorie>();
+    private Categorie ajoutCategorie = new Categorie();
+    private Categorie supprCategorie = new Categorie();
+    private Categorie modifCategorie = new Categorie();
 
     @PostConstruct
     public void init() {
+        initialiserListeCategorie();
+    }
 
+    public void initialiserListeCategorie() {
         try {
             parserXML();
-            lstCategorie.clear();
+            //        lstCategorie.clear();
             lstCategorie = CategorieHandler.getListCategorie();
         } catch (Exception ex) {
             Logger.getLogger(MBCategorie.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     public void parserXML() throws Exception {
@@ -131,6 +138,70 @@ public class MBCategorie implements Serializable {
 
     }
 
+    public void ajouterCategorie() {
+
+        try {
+            String ret = envoyerEtRecevoirMessage("http://localhost:8080/CaisseApplication-war/webresources/listeCategorie/ajouterCategorie/" + ajoutCategorie.getLibelle() + "-" + ajoutCategorie.getCodecategorie() + "-" + ajoutCategorie.getDescription(), "POST");
+
+            if (ret.equals("success")) {
+                initialiserListeCategorie();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(MBCategorie.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public String envoyerEtRecevoirMessage(String adresseUrl, String methodeHTTP) throws MalformedURLException, IOException {
+
+        String traitement = adresseUrl.replaceAll(" ", "%20");
+        // String retencode = URLEncoder.encode(traitement, "UTF-8");
+        URL url = new URL(traitement);
+
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+        conn.setRequestMethod(methodeHTTP);
+        StringBuilder sb = new StringBuilder();
+        conn.setRequestProperty("Accept", "application/xml");
+
+        if (conn.getResponseCode() != 200) {
+            throw new RuntimeException("Failed : HTTP error code : "
+                    + conn.getResponseCode());
+        }
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(
+                (conn.getInputStream())));
+
+        String output;
+
+        while ((output = br.readLine()) != null) {
+            sb.append(output);
+        }
+        conn.disconnect();
+
+        return sb.toString();
+    }
+
+    public void supprimerCategorie() {
+
+        try {
+            String ret = envoyerEtRecevoirMessage("http://localhost:8080/CaisseApplication-war/webresources/listeCategorie/supprimerCategorie/" + supprCategorie.getIdcategorie(), "POST");
+            if (ret.equals("success")) {
+                initialiserListeCategorie();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(MBCategorie.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void modifierCategorie(){
+        try {
+            envoyerEtRecevoirMessage("http://localhost:8080/CaisseApplication-war/webresources/listeCategorie/modifierCategorieByIdCategorie/" + modifCategorie.getIdcategorie()+"-"+modifCategorie.getCodecategorie()+"-"+modifCategorie.getLibelle()+"-"+modifCategorie.getDescription(), "POST");
+            initialiserListeCategorie();
+        } catch (IOException ex) {
+            Logger.getLogger(MBCategorie.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
     /**
      * @return the lstCategorie
      */
@@ -143,5 +214,47 @@ public class MBCategorie implements Serializable {
      */
     public void setLstCategorie(List<Categorie> lstCategorie) {
         this.lstCategorie = lstCategorie;
+    }
+
+    /**
+     * @return the ajoutCategorie
+     */
+    public Categorie getAjoutCategorie() {
+        return ajoutCategorie;
+    }
+
+    /**
+     * @param ajoutCategorie the ajoutCategorie to set
+     */
+    public void setAjoutCategorie(Categorie ajoutCategorie) {
+        this.ajoutCategorie = ajoutCategorie;
+    }
+
+    /**
+     * @return the supprCategorie
+     */
+    public Categorie getSupprCategorie() {
+        return supprCategorie;
+    }
+
+    /**
+     * @param supprCategorie the supprCategorie to set
+     */
+    public void setSupprCategorie(Categorie supprCategorie) {
+        this.supprCategorie = supprCategorie;
+    }
+
+    /**
+     * @return the modifCategorie
+     */
+    public Categorie getModifCategorie() {
+        return modifCategorie;
+    }
+
+    /**
+     * @param modifCategorie the modifCategorie to set
+     */
+    public void setModifCategorie(Categorie modifCategorie) {
+        this.modifCategorie = modifCategorie;
     }
 }

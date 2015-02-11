@@ -16,6 +16,7 @@ public class Article {
 
     private Integer idArticle;
     private Integer idCouleur;
+    private Integer idfornisseur;
     private String nomproduit;
     private String prix;
     private String marque;
@@ -226,6 +227,20 @@ public class Article {
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    /**
+     * @return the idfornisseur
+     */
+    public Integer getIdfornisseur() {
+        return idfornisseur;
+    }
+
+    /**
+     * @param idfornisseur the idfornisseur to set
+     */
+    public void setIdfornisseur(Integer idfornisseur) {
+        this.idfornisseur = idfornisseur;
     }
 
   

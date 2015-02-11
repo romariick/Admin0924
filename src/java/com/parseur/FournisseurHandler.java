@@ -5,7 +5,7 @@
  */
 package com.parseur;
 
-import com.metier.Categorie;
+import com.metier.Fournisseur;
 import com.metier.Utilisateur;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,44 +17,46 @@ import org.xml.sax.helpers.DefaultHandler;
  *
  * @author Romaric
  */
-public class CategorieHandler extends DefaultHandler {
+public class FournisseurHandler extends DefaultHandler {
 
     /**
-     * @return the listCategorie
+     * @return the listFournisseur
      */
-    public static List<Categorie> getListCategorie() {
-        return listCategorie;
+    public static List<Fournisseur> getListFournisseur() {
+        return listFournisseur;
     }
 
     /**
-     * @param aListCategorie the listCategorie to set
+     * @param aListFournisseur the listFournisseur to set
      */
-    public static void setListCategorie(List<Categorie> aListCategorie) {
-        listCategorie = aListCategorie;
+    public static void setListFournisseur(List<Fournisseur> aListFournisseur) {
+        listFournisseur = aListFournisseur;
     }
 
     /**
-     * @return the ajoutCategorie
+     * @return the ajoutFournisseur
      */
-    public static Categorie getAjoutCategorie() {
-        return ajoutCategorie;
+    public static Fournisseur getAjoutFournisseur() {
+        return ajoutFournisseur;
     }
 
     /**
-     * @param aAjoutCategorie the ajoutCategorie to set
+     * @param aAjoutFournisseur the ajoutFournisseur to set
      */
-    public static void setAjoutCategorie(Categorie aAjoutCategorie) {
-        ajoutCategorie = aAjoutCategorie;
+    public static void setAjoutFournisseur(Fournisseur aAjoutFournisseur) {
+        ajoutFournisseur = aAjoutFournisseur;
     }
+
+  
 
     private StringBuffer buffer;
-    private static List<Categorie> listCategorie = new ArrayList<Categorie>();
-    private static Categorie ajoutCategorie = new Categorie();
+    private static List<Fournisseur> listFournisseur = new ArrayList<Fournisseur>();
+    private static Fournisseur ajoutFournisseur = new Fournisseur();
 
     /**
      * Constructeur par defaut. Initialise le buffer.
      */
-    public CategorieHandler() {
+    public FournisseurHandler() {
         super();
         buffer = new StringBuffer();
     }
@@ -64,7 +66,7 @@ public class CategorieHandler extends DefaultHandler {
      */
     @Override
     public void startDocument() throws SAXException {
-        listCategorie.clear();
+        getListFournisseur().clear();
         System.out.println("Debut de l'analyse" + System.getProperty("line.separator"));
     }
 
@@ -103,17 +105,21 @@ public class CategorieHandler extends DefaultHandler {
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 
-        if (qName.equals("categories")) {
-         
-            setAjoutCategorie(new Categorie());
+        if (qName.equals("fournisseurs")) {
+            System.out.println("Debut fournisseurs");
+            ajoutFournisseur = new Fournisseur();
 
-        } else if (qName.equals("libellecategorie")) {
+        } else if (qName.equals("nomfornisseur")) {
             buffer = new StringBuffer();
-        } else if (qName.equals("descriptioncategorie")) {
+        } else if (qName.equals("adressefournisseur")) {
             buffer = new StringBuffer();
-        } else if (qName.equals("idcategorie")) {
+        } else if (qName.equals("villefornisseur")) {
             buffer = new StringBuffer();
-        } else if (qName.equals("codecategorie")) {
+        } else if (qName.equals("telfournisseur")) {
+            buffer = new StringBuffer();
+        } else if (qName.equals("emailfournisseur")) {
+            buffer = new StringBuffer();
+        }else if (qName.equals("idfornisseur")) {
             buffer = new StringBuffer();
         } else {
             buffer = null;
@@ -130,24 +136,31 @@ public class CategorieHandler extends DefaultHandler {
      */
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        if (qName.equals("categories")) {
-            listCategorie.add(getAjoutCategorie());
+        if (qName.equals("fournisseurs")) {
+            listFournisseur.add(ajoutFournisseur);
             //ajoutArticle = new Article();
         }
-        if (qName.equals("libellecategorie")) {
-            getAjoutCategorie().setLibelle(buffer.toString());
+        if (qName.equals("nomfornisseur")) {
+            ajoutFournisseur.setNomfornisseur(buffer.toString());
             buffer = null;
-        } else if (qName.equals("descriptioncategorie")) {
-            getAjoutCategorie().setDescription(buffer.toString());
+        } else if (qName.equals("adressefournisseur")) {
+            ajoutFournisseur.setAdressefournisseur(buffer.toString());
             buffer = null;
-        } else if (qName.equals("idcategorie")) {
-            String temp = buffer.toString();
-            ajoutCategorie.setIdcategorie(Integer.parseInt(temp));
+        } else if (qName.equals("villefornisseur")) {
+            ajoutFournisseur.setVillefornisseur(buffer.toString());
+            buffer = null;
+        } else if (qName.equals("telfournisseur")) {
+            ajoutFournisseur.setTelfournisseur(buffer.toString());
             buffer = null;
 
-        } else if (qName.equals("codecategorie")) {
-            ajoutCategorie.setCodecategorie(buffer.toString());
+        }else if(qName.equals("emailfournisseur")){
+            ajoutFournisseur.setEmailfournisseur(buffer.toString());
             buffer = null;
+            
+        }else if(qName.equals("idfornisseur")){
+            ajoutFournisseur.setIdfornisseur(buffer.toString());
+            buffer = null;
+            
         }
 
         //ajoutArticle.setListeArticle(getListArctile());

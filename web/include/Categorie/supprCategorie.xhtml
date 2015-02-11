@@ -8,16 +8,18 @@
 
     <ui:composition>
 
-        <p:confirmDialog id="dlgSupprContact" message="Etes-vous sûr de vouloir supprimer?"
-                         header="Supprimer Contact" severity="alert" widgetVar="dlgSupprCategorie">
+        <h:form>
+            <p:confirmDialog id="dlgSupprContact" message="Etes-vous sûr de vouloir supprimer?"
+                             header="Supprimer Contact" severity="alert" widgetVar="dlgSupprCategorie">
 
-            <p:commandButton   id="confirm" value="Oui" oncomplete="dlgSupprCategorie.hide();dlgSupprCategorie.show();" 
-                              
-                               />
-            <p:commandButton id="decline" value="Non" onclick="dlgSupprCategorie.hide();" type="button" />
+                <p:commandButton   id="confirm" value="Oui" oncomplete="dlgSupprCategorie.hide();" 
+                                   actionListener="#{MBCategorie.supprimerCategorie()}"
+                                   update=":client"
+                                   />
+                <p:commandButton id="decline" value="Non" onclick="dlgSupprCategorie.hide();" type="button" />
 
-        </p:confirmDialog>
-
+            </p:confirmDialog>
+        </h:form>
     </ui:composition>
 </html>
 

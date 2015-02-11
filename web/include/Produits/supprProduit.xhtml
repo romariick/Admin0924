@@ -13,7 +13,7 @@
 
             <p:commandButton   id="confirm" value="Oui" oncomplete="dlgSupprProduit.hide();" 
                                actionListener="#{MBArticle.supprimerProduit()}"
-                               update=":client"
+                               update=":client, :messageClient"
                                />
             <p:commandButton id="decline" value="Non" onclick="dlgSupprProduit.hide();" type="button" />
 

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition>
+
+
+        <p:dialog  id="dialogform" header="Modifier Fournisseur" widgetVar="dlgmodif" modal="true">
+            <h:form id="formModifFournisseurs">
+                <h:panelGrid id="modifFormGrid" columns="2" cellpadding="5" >
+
+
+                    <h:outputLabel for="nomUtili">Nom Fournisseur</h:outputLabel>
+                    <p:inputText value="#{MBFournisseur.modifFournisseur.nomfornisseur}" id="nomUtili" label="nomUtili" />
+
+                    <p:outputLabel for="prenomFournisseurModif">Prénom</p:outputLabel>
+                    <p:inputText value="#{MBFournisseur.modifFournisseur.telfournisseur}" id="prenomFournisseurModif" required="true" requiredMessage="Vous devez saisir le prénom de l'Fournisseur" />
+
+                    <p:outputLabel for="loginModif">Login</p:outputLabel>
+                    <p:inputText value="#{MBFournisseur.modifFournisseur.emailfournisseur}" id="loginModif" required="true" requiredMessage="Vous devez saisir le login de l'Fournisseur" />
+
+                    <p:outputLabel for="villeModif">Ville</p:outputLabel>
+                    <p:inputText value="#{MBFournisseur.modifFournisseur.villefornisseur}" id="villeModif" required="true" requiredMessage="Vous devez saisir le login de l'Fournisseur" />
+
+                    <f:facet name="footer">
+                        <p:commandButton icon="ui-icon-pencil" id="modifBouton" value="Modifier"
+                                             actionListener="#{MBFournisseur.modifierFournisseur()}"
+                                         style="margin-right: 10px;"
+                                         update=":client, :messageClient"
+                                         oncomplete="dlgmodif.hide();"
+                                         />
+                        <p:commandButton value="Fermer" immediate="true" onclick="dlgmodif.hide();" />
+                    </f:facet>
+
+
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
+

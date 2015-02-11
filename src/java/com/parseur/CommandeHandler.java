@@ -5,8 +5,7 @@
  */
 package com.parseur;
 
-import com.metier.Categorie;
-import com.metier.Utilisateur;
+import com.metier.Commande;
 import java.util.ArrayList;
 import java.util.List;
 import org.xml.sax.Attributes;
@@ -17,44 +16,46 @@ import org.xml.sax.helpers.DefaultHandler;
  *
  * @author Romaric
  */
-public class CategorieHandler extends DefaultHandler {
+public class CommandeHandler extends DefaultHandler {
 
     /**
-     * @return the listCategorie
+     * @return the listCommande
      */
-    public static List<Categorie> getListCategorie() {
-        return listCategorie;
+    public static List<Commande> getListCommande() {
+        return listCommande;
     }
 
     /**
-     * @param aListCategorie the listCategorie to set
+     * @param aListCommande the listCommande to set
      */
-    public static void setListCategorie(List<Categorie> aListCategorie) {
-        listCategorie = aListCategorie;
+    public static void setListCommande(List<Commande> aListCommande) {
+        listCommande = aListCommande;
     }
 
     /**
-     * @return the ajoutCategorie
+     * @return the ajoutCommande
      */
-    public static Categorie getAjoutCategorie() {
-        return ajoutCategorie;
+    public static Commande getAjoutCommande() {
+        return ajoutCommande;
     }
 
     /**
-     * @param aAjoutCategorie the ajoutCategorie to set
+     * @param aAjoutCommande the ajoutCommande to set
      */
-    public static void setAjoutCategorie(Categorie aAjoutCategorie) {
-        ajoutCategorie = aAjoutCategorie;
+    public static void setAjoutCommande(Commande aAjoutCommande) {
+        ajoutCommande = aAjoutCommande;
     }
+
+   
 
     private StringBuffer buffer;
-    private static List<Categorie> listCategorie = new ArrayList<Categorie>();
-    private static Categorie ajoutCategorie = new Categorie();
+    private static List<Commande> listCommande = new ArrayList<Commande>();
+    private static Commande ajoutCommande = new Commande();
 
     /**
      * Constructeur par defaut. Initialise le buffer.
      */
-    public CategorieHandler() {
+    public CommandeHandler() {
         super();
         buffer = new StringBuffer();
     }
@@ -64,7 +65,7 @@ public class CategorieHandler extends DefaultHandler {
      */
     @Override
     public void startDocument() throws SAXException {
-        listCategorie.clear();
+        listCommande.clear();
         System.out.println("Debut de l'analyse" + System.getProperty("line.separator"));
     }
 
@@ -103,17 +104,15 @@ public class CategorieHandler extends DefaultHandler {
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 
-        if (qName.equals("categories")) {
-         
-            setAjoutCategorie(new Categorie());
+        if (qName.equals("commandes")) {
+           
+            ajoutCommande = new Commande();
 
-        } else if (qName.equals("libellecategorie")) {
+        } else if (qName.equals("idcommande")) {
             buffer = new StringBuffer();
-        } else if (qName.equals("descriptioncategorie")) {
+        } else if (qName.equals("datecommande")) {
             buffer = new StringBuffer();
-        } else if (qName.equals("idcategorie")) {
-            buffer = new StringBuffer();
-        } else if (qName.equals("codecategorie")) {
+        } else if (qName.equals("etatcommande")) {
             buffer = new StringBuffer();
         } else {
             buffer = null;
@@ -130,27 +129,28 @@ public class CategorieHandler extends DefaultHandler {
      */
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        if (qName.equals("categories")) {
-            listCategorie.add(getAjoutCategorie());
+        if (qName.equals("commandes")) {
+            listCommande.add(ajoutCommande);
             //ajoutArticle = new Article();
         }
-        if (qName.equals("libellecategorie")) {
-            getAjoutCategorie().setLibelle(buffer.toString());
+        if (qName.equals("idcommande")) {
+            ajoutCommande.setIdcommande(buffer.toString());
             buffer = null;
-        } else if (qName.equals("descriptioncategorie")) {
-            getAjoutCategorie().setDescription(buffer.toString());
+        } else if (qName.equals("datecommande")) {     
+            ajoutCommande.setDatecommande(buffer.toString());
             buffer = null;
-        } else if (qName.equals("idcategorie")) {
-            String temp = buffer.toString();
-            ajoutCategorie.setIdcategorie(Integer.parseInt(temp));
+        } else if (qName.equals("etatcommande")) {
+            ajoutCommande.setEtatcommande(buffer.toString());
+            buffer = null;
+        } else if (qName.equals("idcommande")) {
+            ajoutCommande.setIdcommande(buffer.toString());
             buffer = null;
 
-        } else if (qName.equals("codecategorie")) {
-            ajoutCategorie.setCodecategorie(buffer.toString());
-            buffer = null;
         }
 
         //ajoutArticle.setListeArticle(getListArctile());
     }
+
+
 
 }

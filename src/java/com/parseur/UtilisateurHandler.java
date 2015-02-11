@@ -88,8 +88,7 @@ public class UtilisateurHandler extends DefaultHandler {
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 
-        if (qName.equals("utilisateurs")) {
-            System.out.println("Debut utilisateur");
+        if (qName.equals("utilisateurs")) {        
             ajoutUtilisateur = new Utilisateur();
 
         } else if (qName.equals("nom")) {
