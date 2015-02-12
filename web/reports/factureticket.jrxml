@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b183ebf9-f5b3-44c4-bf3a-0b31a979eae6">
+	<property name="ireport.zoom" value="1.771561000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="35"/>
+	<parameter name="totalEuro" class="java.lang.Double"/>
+	<parameter name="datefacture" class="java.util.Date"/>
+	<field name="designationcommande" class="java.lang.String"/>
+	<field name="nomfournisseur" class="java.lang.String"/>
+	<field name="quantite" class="java.lang.String"/>
+	<field name="prixunitaire" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="62" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="6322e932-e5ec-4d0d-9869-d7f1d92b3edd" x="0" y="2" width="238" height="31"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bon de commande]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="14ec540b-de6e-4c36-adea-32018d194731" x="455" y="10" width="100" height="20"/>
+				<box topPadding="2"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$P{datefacture}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="903bfe1c-c0cc-45b8-9f00-827f1acb837b" x="308" y="9" width="143" height="20"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Date :]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="22">
+			<rectangle>
+				<reportElement uuid="eaadd8b8-59fc-49dd-a61b-77925f86fef4" x="0" y="0" width="100" height="22" backcolor="#CCCCCC"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="f69ee202-f2c5-4de6-ac52-ea84f8453da1" x="100" y="0" width="148" height="21" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="db4433df-4bc5-4f1b-a8ee-4f4b2ba22166" x="100" y="1" width="148" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Fournisseur]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="8f1ff7e1-70be-4d51-801e-f74400d8d065" x="248" y="0" width="188" height="22" backcolor="#CCCCCC"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="095123ef-0e84-4434-b1b6-8eb22b34f636" x="436" y="0" width="119" height="22" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="7bebede8-df3d-405e-890a-7050eb0f89f2" x="248" y="1" width="188" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Quantité]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="45961832-1e3c-450c-9e3e-8cd0b9691ab1" x="436" y="1" width="119" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Prix unitaire]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8f202939-ed00-4996-a379-0eabe0e9c545" x="1" y="0" width="99" height="21"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Designation]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement uuid="132e4e07-5d4e-4773-8aef-f7ee15ade38a" x="0" y="0" width="100" height="23"/>
+				<box topPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{designationcommande}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6e5207cf-e692-47ed-bee5-c7d41923f174" x="100" y="-1" width="148" height="24"/>
+				<box topPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nomfournisseur}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044c3134-ddbb-4e2d-8bfb-eac1030da594" x="248" y="0" width="188" height="24"/>
+				<box topPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{quantite}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="155d561a-a81b-4406-9843-8f0dffaced68" x="436" y="0" width="119" height="24"/>
+				<box topPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{prixunitaire}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="52">
+			<line>
+				<reportElement uuid="734f0351-9388-4390-949b-a792c18542b9" x="22" y="29" width="515" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="9e744853-ece9-4d2f-8a77-650b1671384c" x="92" y="32" width="402" height="20"/>
+				<box topPadding="3"/>
+				<textElement textAlignment="Center">
+					<font isItalic="true"/>
+				</textElement>
+				<text><![CDATA[URCA Tél : 00000000 Reims Champange Ardenne]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="33">
+			<staticText>
+				<reportElement uuid="943a9d45-3dfe-419c-a0fb-40b1ac049d7e" x="312" y="12" width="100" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total en Euro :]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="1392c1d3-9d66-4a4a-9082-720f8eaadcf3" x="413" y="13" width="111" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalEuro}+" euro"]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

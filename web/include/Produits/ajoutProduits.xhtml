@@ -30,6 +30,7 @@
                         <p:column colspan="3">                                
                             <p:inputText id="resAjout" label="Prix" 
                                          style="width: 98%;"
+                                         required="true"
                                          value="#{MBArticle.ajoutArticle.prix}"/>
                         </p:column>
                     </p:row>                    
@@ -38,8 +39,8 @@
                             <p:outputLabel for="categorieAjout" value="Catégorie"/>
                         </p:column>
                         <p:column colspan="3">                                
-                            <p:selectOneMenu   id="categorieAjout"  value="#{MBArticle.recupIdCategorie}"  style="width:98%;">  
-                                <f:selectItem itemLabel="Choisir catégorie" itemValue="-1" />
+                            <p:selectOneMenu  required="true" id="categorieAjout"  value="#{MBArticle.recupIdCategorie}"  style="width:98%;">  
+                                <f:selectItem itemLabel="Choisir" itemValue="-1" />
                                 <f:selectItems value="#{MBCategorie.lstCategorie}" var="cat" itemLabel="#{cat.libelle}"  itemValue="#{cat.idcategorie}" /> 
                             </p:selectOneMenu>  
                         </p:column>
@@ -51,7 +52,7 @@
                         </p:column>
                         <p:column colspan="3">                                
                             <p:selectOneMenu   id="fournisseurAjout"  value="#{MBArticle.recupIdFournisseur}"  style="width:98%;">  
-                                <f:selectItem itemLabel="Choisir catégorie" itemValue="-1" />
+                                <f:selectItem itemLabel="Choisir" itemValue="-1" />
                                 <f:selectItems value="#{MBArticle.lstFournisseur}" var="fournisseur" itemLabel="#{fournisseur.nomfornisseur}"  itemValue="#{fournisseur.idfornisseur}" /> 
                             </p:selectOneMenu>  
                         </p:column>
@@ -87,6 +88,7 @@
                         </p:column>
                         <p:column colspan="3">                                
                             <p:inputText id="resCodebarre" label="Code barre" 
+                                         required="true"
                                          style="width: 98%;"
                                          value="#{MBArticle.ajoutArticle.codeBarre}"/>
                         </p:column>
@@ -98,6 +100,7 @@
                         </p:column>
                         <p:column colspan="3">
                             <p:inputText id="nombreAjout" label="Marque" 
+                                         required="true"
                                          style="width: 98%;"
                                          value="#{MBArticle.ajoutArticle.nombre}"/>
                         </p:column>

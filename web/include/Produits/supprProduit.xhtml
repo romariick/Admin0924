@@ -9,7 +9,7 @@
     <ui:composition>
 
         <p:confirmDialog id="dlgSupprContact" message="Etes-vous sûr de vouloir supprimer?"
-                         header="Supprimer Contact" severity="alert" widgetVar="dlgSupprProduit">
+                         header="Supprimer produit" severity="alert" widgetVar="dlgSupprProduit">
 
             <p:commandButton   id="confirm" value="Oui" oncomplete="dlgSupprProduit.hide();" 
                                actionListener="#{MBArticle.supprimerProduit()}"

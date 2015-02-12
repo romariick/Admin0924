@@ -22,32 +22,32 @@
                 </f:facet>  
                 <p:column  style="width:20%" filterBy="">
                     <f:facet name="header">  
-                        <h:outputText value="Nom" />  
+                        <h:outputText value="Nom Fournisseur" />  
                     </f:facet>  
                     <h:outputText value="#{cmd.nomfournisseur}" /> 
                 </p:column>  
 
                 <p:column  style="width:20%" filterBy="">
                     <f:facet name="header">  
-                        <h:outputText value="Nom" />  
+                        <h:outputText value="Designation commande" />  
                     </f:facet>  
                     <h:outputText value="#{cmd.designationcommande}" /> 
                 </p:column>  
 
+
                 <p:column  style="width:20%" filterBy="">
                     <f:facet name="header">  
-                        <h:outputText value="Prénom" />  
-                    </f:facet>  
-                    <h:outputText value="#{cmd.nomfournisseur}" /> 
-                </p:column>   
-                <p:column  style="width:20%" filterBy="">
-                    <f:facet name="header">  
-                        <h:outputText value="Login" />  
+                        <h:outputText value="Prix unitaire" />  
                     </f:facet>  
                     <h:outputText value="#{cmd.prixunitaire}" /> 
                 </p:column> 
 
-
+                <p:column  style="width:20%" filterBy="">
+                    <f:facet name="header">  
+                        <h:outputText value="Quantité" />  
+                    </f:facet>  
+                    <h:outputText value="#{cmd.quantite}" /> 
+                </p:column>
                 <p:column  styleClass="alignCenter" style="width:10%">
                     <f:facet name="header">  
                         <h:outputText value="Modifier" />  
@@ -82,6 +82,14 @@
 
         </h:form>
         <ui:include src="/include/Commandes/ModifCommande.xhtml"/>
+
+        <h:form id="affPdfacture">
+            <p:dialog id="dialogaffichagefacture" header="Bon de commande" widgetVar="dlgaffichFacture" width="800" height="600" modal="true">
+                <p:media value="/admin/#{MBCommande.fileNameTemp}" player="pdf"
+                         id="idmediaDefunt" width="700px" height="600" />
+
+            </p:dialog>
+        </h:form>
     </ui:composition>
 </html>
 

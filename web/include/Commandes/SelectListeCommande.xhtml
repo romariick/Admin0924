@@ -26,13 +26,21 @@
                                      style="margin-top: 10px;margin-bottom: 10px;"
                                      >
                     </p:commandButton>
-                    
+                    <p:commandButton icon="ui-icon-plus"   
+                                     oncomplete ="dlgaffichFacture.show();"
+                                     update=":affPdfacture"
+                                     value="Génerer facture" 
+                                     actionListener="#{MBCommande.validerCommande()}"
+                                     title="Acheter" 
+                                     style="margin-top: 10px;margin-bottom: 10px;"
+                                     >
+                    </p:commandButton>
                     <ui:include src="/include/Commandes/ajoutCommande.xhtml"/>
                 </h:form>
 
             </p:panel>           
         </p:panel>
-       
+
     </ui:composition>
 </html>
 

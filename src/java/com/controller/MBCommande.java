@@ -5,19 +5,27 @@
  */
 package com.controller;
 
+import com.metier.Article;
 import com.metier.Lignecommande;
 import com.parseur.LignecommandeHandler;
 import com.parseur.UtilisateurHandler;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,6 +45,12 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -53,6 +67,10 @@ public class MBCommande implements Serializable {
     private Lignecommande modifLigneCommande = new Lignecommande();
     private Lignecommande supprLigneCommande = new Lignecommande();
     private Lignecommande ajoutLingeCommande = new Lignecommande();
+    private List<Lignecommande> tempListCommande = new ArrayList<Lignecommande>();
+    JasperPrint jasperPrint;
+    private String fileNameTemp;
+    private Double netApayez = 0.0;
 
     @PostConstruct
     public void init() {
@@ -157,7 +175,6 @@ public class MBCommande implements Serializable {
 
         String url = "http://localhost:8080/CaisseApplication-war/webresources/listelignecommande/modifierLigneCommandeById/" + modifLigneCommande.getIdlignedecommande() + "-" + modifLigneCommande.getDesignationcommande() + "-" + modifLigneCommande.getQuantite() + "-" + modifLigneCommande.getNomfournisseur() + "-" + modifLigneCommande.getPrixunitaire();
 
-    
         String ret = "";
         try {
             ret = envoyerEtRecevoirMessage(url, "POST");
@@ -179,7 +196,6 @@ public class MBCommande implements Serializable {
                 recupererListeCommande();
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Suppression avec succès !", "");
                 FacesContext.getCurrentInstance().addMessage(null, message);
-
             }
         } catch (IOException ex) {
             Logger.getLogger(MBUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
@@ -190,16 +206,80 @@ public class MBCommande implements Serializable {
     public void ajouterCommande() {
         try {
             String ret = envoyerEtRecevoirMessage("http://localhost:8080/CaisseApplication-war/webresources/listelignecommande/ajouterLignecommande/" + ajoutLingeCommande.getDesignationcommande() + "-" + ajoutLingeCommande.getNomfournisseur() + "-" + ajoutLingeCommande.getQuantite() + "-" + ajoutLingeCommande.getPrixunitaire(), "POST");
-
             if (!ret.isEmpty()) {
                 recupererListeCommande();
+                
+                tempListCommande.add(ajoutLingeCommande);
+                netApayez += Double.parseDouble(ajoutLingeCommande.getPrixunitaire()) * Double.parseDouble(ajoutLingeCommande.getQuantite());
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Ajout avec succès !", "");
                 FacesContext.getCurrentInstance().addMessage(null, message);
-
             }
 
         } catch (IOException ex) {
             Logger.getLogger(MBUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void validerCommande() throws JRException, FileNotFoundException{
+        initialisationDetailPDF();
+    }
+
+    public void initialisationDetailPDF() throws JRException, FileNotFoundException {
+        fileNameTemp = "facture.pdf";
+
+        try {
+            String destFiles = FacesContext.getCurrentInstance().getExternalContext().getRealPath("admin/");
+            File pdfFile = new File(destFiles + "/Fichier.pdf");
+            copyFile(fileNameTemp, new FileInputStream(pdfFile), destFiles);
+            String destFileTemp = FacesContext.getCurrentInstance().getExternalContext().getRealPath("admin/" + fileNameTemp);
+            File pdfFileTemp = new File(destFileTemp);
+            System.out.println("Exist" + pdfFileTemp.exists());
+        } catch (Exception e) {
+        }
+
+        HashMap mesParametres = new HashMap();
+
+        mesParametres.put("totalEuro", netApayez);
+        mesParametres.put("datefacture", new Date());
+
+        List<Article> temps = null;
+        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(tempListCommande);
+        String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("reports/factureticket.jasper");
+
+        String destFileTemp = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/admin/" + fileNameTemp);
+        File pdfFileTemp = new File(destFileTemp);
+
+        jasperPrint = JasperFillManager.fillReport(reportPath, mesParametres, beanCollectionDataSource);
+
+        JRPdfExporter exp = new JRPdfExporter();
+
+        exp.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+        exp.setParameter(JRExporterParameter.OUTPUT_STREAM, new FileOutputStream(pdfFileTemp));
+
+        exp.exportReport();
+    }
+
+    public void copyFile(String fileName, InputStream in, String destination) {
+
+        try {
+
+            // write the inputStream to a FileOutputStream
+            OutputStream out = new FileOutputStream(new File(destination + "/" + fileName));
+
+            int read = 0;
+            byte[] bytes = new byte[1024];
+
+            while ((read = in.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+
+            in.close();
+            out.flush();
+            out.close();
+
+            System.out.println("New file created!");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -257,6 +337,48 @@ public class MBCommande implements Serializable {
      */
     public void setAjoutLingeCommande(Lignecommande ajoutLingeCommande) {
         this.ajoutLingeCommande = ajoutLingeCommande;
+    }
+
+    /**
+     * @return the fileNameTemp
+     */
+    public String getFileNameTemp() {
+        return fileNameTemp;
+    }
+
+    /**
+     * @param fileNameTemp the fileNameTemp to set
+     */
+    public void setFileNameTemp(String fileNameTemp) {
+        this.fileNameTemp = fileNameTemp;
+    }
+
+    /**
+     * @return the tempListCommande
+     */
+    public List<Lignecommande> getTempListCommande() {
+        return tempListCommande;
+    }
+
+    /**
+     * @param tempListCommande the tempListCommande to set
+     */
+    public void setTempListCommande(List<Lignecommande> tempListCommande) {
+        this.tempListCommande = tempListCommande;
+    }
+
+    /**
+     * @return the netApayez
+     */
+    public Double getNetApayez() {
+        return netApayez;
+    }
+
+    /**
+     * @param netApayez the netApayez to set
+     */
+    public void setNetApayez(Double netApayez) {
+        this.netApayez = netApayez;
     }
 
 }

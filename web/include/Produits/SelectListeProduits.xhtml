@@ -18,7 +18,7 @@
                         <p:outputLabel styleClass="boldLabel" for="selectClient" value="Recherche par catégorie : "/>
 
                         <p:selectOneMenu   id="selectClient"  value="#{MBArticle.idcategorie}"  style="width:135px">  
-                            <f:selectItem itemLabel="Choisir client" itemValue="-1" />
+                            <f:selectItem itemLabel="Choisir" itemValue="-1" />
                             <f:selectItems value="#{MBCategorie.lstCategorie}" var="categorie" itemValue="#{categorie.idcategorie}" itemLabel="#{categorie.libelle}" />                    
                             <p:ajax  event="change" update=":client"   listener="#{MBArticle.obtenireParCategorie()}"    />
                         </p:selectOneMenu>  

@@ -20,20 +20,20 @@
                 <f:facet name="header">  
                     Liste des produits
                 </f:facet>  
-                <p:column  style="width:20%" filterBy="">
+                <p:column  style="width:20%" filterBy="#{produit.nomproduit}">
                     <f:facet name="header">  
                         <h:outputText value="Nom Produit" />  
                     </f:facet>  
                     <h:outputText value="#{produit.nomproduit}" /> 
                 </p:column>  
 
-                <p:column  style="width:20%" filterBy="">
+                <p:column  style="width:20%" filterBy="#{produit.prix}">
                     <f:facet name="header">  
                         <h:outputText value="Prix" />  
                     </f:facet>  
                     <h:outputText value="#{produit.prix}" /> 
                 </p:column>   
-                <p:column  style="width:20%" filterBy="">
+                <p:column  style="width:20%" filterBy="#{produit.codeBarre}">
                     <f:facet name="header">  
                         <h:outputText value="Code barre" />  
                     </f:facet>  
